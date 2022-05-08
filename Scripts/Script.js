@@ -6,3 +6,8 @@ var OpenStreetMap_Mapnik = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{
 	maxZoom: 19,
 	attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 });
+
+// NOTE: Work in progress
+var Layer = OpenStreetMap_Mapnik
+
+Layer.addTo(map);
