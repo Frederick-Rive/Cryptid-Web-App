@@ -22,8 +22,12 @@ html, body {
 }
 
 /* Test Login in the side bar */
-#testLogin {
+#PH-testLogin {
   display: flex;
-  align-items: flex-start;
   flex-direction: column;
+}
+
+#PH-loginButtons {
+  display: flex;
+  flex-direction: row;
 }
