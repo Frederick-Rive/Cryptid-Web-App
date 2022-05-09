@@ -12,5 +12,5 @@ var Layer = OpenStreetMap_Mapnik
 Layer.addTo(map);
 
 // NOTE: Marker Example
-var testmark = L.marker([-41.2924, 174.7787]).bindPopup('I AM A MASSIVE TEST').addTo(map);
+var testmark = L.marker([-41.2924, 174.7787]).bindPopup('TestPinA').addTo(map);
 testmark.addTo(map);
