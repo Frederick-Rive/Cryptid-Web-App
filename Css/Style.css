@@ -1,0 +1,22 @@
+
+/* base css */
+html, body {
+  height: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+/* Map CSS */
+#Mapid {
+  margin-left: 20em;
+  height:100%;
+  width: 90%%;
+}
+
+/* Sidebar CSS */
+.mapSidebar {
+  margin-left: 0;
+  height: 100%;
+  width: 280;
+  float: left;
+}
