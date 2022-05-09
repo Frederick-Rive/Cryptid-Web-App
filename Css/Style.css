@@ -8,7 +8,7 @@ html, body {
 
 /* Map CSS */
 #Mapid {
-  margin-left: 20em;
+  margin-left: 15em;
   height:100%;
   width: 90%%;
 }
@@ -25,9 +25,14 @@ html, body {
 #PH-testLogin {
   display: flex;
   flex-direction: column;
+  margin-bottom: 40px;
 }
 
 #PH-loginButtons {
   display: flex;
   flex-direction: row;
+}
+
+#searchbar {
+  margin-top: 40px;
 }
