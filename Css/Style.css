@@ -20,3 +20,10 @@ html, body {
   width: 280;
   float: left;
 }
+
+/* Test Login in the side bar */
+#testLogin {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+}
