@@ -20,3 +20,14 @@ html, body {
   width: 280;
   float: left;
 }
+
+/* Test Login in the side bar */
+#PH-testLogin {
+  display: flex;
+  flex-direction: column;
+}
+
+#PH-loginButtons {
+  display: flex;
+  flex-direction: row;
+}

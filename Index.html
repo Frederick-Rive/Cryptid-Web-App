@@ -24,19 +24,34 @@
 <!--linking leaflet providers-->
    <script src="Scripts/leaflet-providers.js"></script>
 
+<!-- Linking pageScript.js -->
+<script src="Scripts/pageScript.js" charset="utf-8"></script>
+
   </head>
 
 
   <body>
     <!--creating divs for the Map and its Sidebar-->
     <div class="mapSidebar">
-Testing
+
+      <!-- placeholder: button nonfunctional -->
+      <div id="PH-testLogin">
+        <label for="uName">Username:</label>
+        <input type="text" name="uName" value="">
+        <label for="pWord">Password:</label>
+        <input type="text" name="pWord" value="">
+         <div id="PH-loginButtons">
+           <button type="button" name="loginButton">Login</button>
+           <button type="button" name="registerButton">Register</button>
+         </div>
+      </div>
+
     </div>
     <!--div that contians the map-->
     <div id="Mapid"></div>
 
-    <!--linking the Script js File for use with the map div-->
-    <script src="Scripts/Script.js" charset="utf-8"></script>
+    <!--linking the Script js File for use with the div containing the map-->
+    <script src="Scripts/MapScript.js" charset="utf-8"></script>
 
   </body>
 
