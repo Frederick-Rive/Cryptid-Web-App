@@ -7,7 +7,7 @@
 
 
 <!--Linking CSS files-->
-    <link rel="stylesheet" href="css/Style.css">
+    <link rel="stylesheet" href="/css/Style.css">
 
 <!--Linking leaflet-->
 
@@ -21,11 +21,6 @@
    integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ=="
    crossorigin=""></script>
 
-<!--linking leaflet providers-->
-   <script src="scripts/leaflet-providers.js"></script>
-
-<!-- Linking pageScript.js -->
-<script src="scripts/pageScript.js" charset="utf-8"></script>
 
   </head>
 
@@ -41,7 +36,7 @@
         <label for="pWord">Password:</label>
         <input type="text" name="pWord" value="">
          <div id="PH-loginButtons">
-           <button type="button" name="loginButton">Login</button>
+           <button type="button" name='loginButton' id="loginButton">Login</button>
            <button type="button" name="registerButton">Register</button>
          </div>
       </div>
@@ -53,14 +48,27 @@
            <input type="text" name="searchbar" value="search">
            <button type="button" name="searchConfirm">Go</button>
          </div>
+
+         <hr style="width:100%;text-align:left;margin-left:0">
+
+         <a href="/html/profile.html">Profile</a>
+
       </div>
 
     </div>
     <!--div that contians the map-->
     <div id="Mapid"></div>
 
+    <!-- NOTE: Linking javascript for use -->
+
     <!--linking the Script js File for use with the div containing the map-->
-    <script src="scripts/mapScript.js" charset="utf-8"></script>
+    <script src="/scripts/mapScript.js" charset="utf-8"></script>
+
+    <!--linking leaflet providers-->
+       <script src="/scripts/leaflet-providers.js"></script>
+
+    <!-- Linking pageScript.js -->
+    <script src="/scripts/pageScript.js" charset="utf-8"></script>
 
   </body>
 

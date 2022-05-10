@@ -1,10 +1,11 @@
 
 //getting buttons
-var loginButton = getElementsByName('loginButton');
-var registerButton = getElementsByName('registerButton');
-var searchConfirm = getElementsByName('searchConfirm');
+var loginButton = document.getElementsByName('loginButton');
+var registerButton = document.getElementsByName('registerButton');
+var searchConfirm = document.getElementsByName('searchConfirm');
+var profile = document.getElementsByName('PH-ProfileLink')
 
-//button event listeners
-loginButton.addeventlistener();
-registerButton.addeventlistener();
-searchConfirm.addeventlistener();
+//event functions
+function toProfile() {
+  window.location = "html/profile.html"
+}
