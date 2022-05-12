@@ -55,3 +55,11 @@ html, body {
   margin-right: 30em;
   background-color: white;
 }
+
+.activityFeedItem {
+  padding: 10px;
+  border: 1px solid black;
+  margin-left: 2px;
+  margin-right: 2px;
+  border-radius: 30px;
+}
