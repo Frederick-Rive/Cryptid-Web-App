@@ -21,8 +21,10 @@ html, body {
 .mapSidebar {
   margin-left: 0;
   height: 100%;
-  width: 280;
+  width: 280px;
   float: left;
+  background-color: lightGrey;
+  padding-right: 20px;
 }
 
 /* Test Login in the side bar */
@@ -46,20 +48,37 @@ html, body {
 
 #background {
   height: 100%;
-  background-color: pink;
+  background-color: #43464B;
+}
+
+#maplink {
+  color: black;
 }
 
 .centerpiece {
   height: 100%;
-  margin-left: 30em;
-  margin-right: 30em;
-  background-color: white;
+  margin-left: 25em;
+  margin-right: 25em;
+  background-color: black;
+  color: green;
+}
+
+.topBanner {
+  background-color: #43464B;
+}
+
+.bannerText {
+  color: black;
+}
+
+#banner-center_seperator {
+  margin-bottom: 0px;
 }
 
 .activityFeedItem {
   padding: 10px;
-  border: 1px solid black;
-  margin-left: 2px;
-  margin-right: 2px;
-  border-radius: 30px;
+  border: 1px solid green;
+  margin-left: 25px;
+  margin-right: 25px;
+
 }
