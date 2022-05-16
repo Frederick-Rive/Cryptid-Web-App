@@ -1,8 +1,8 @@
 const mongoose = require("mongoose");
 const express = require("express");
 const app = express();
-//const bodyParsesr = require('body-parser');
-//app.use(bodyParsesr.json);
+const bodyParser = require('body-parser');
+app.use(bodyParser.json());
 const cors = require('cors');
 app.use(cors({
     origin: '*'
@@ -24,13 +24,11 @@ mongoose.connect('mongodb+srv://Freddie:cryptids@cryptids.bekuf.mongodb.net/myFi
 //get schemas from other files
 const Pin = require('./databases/pin.js');
 const Account = require('./databases/account.js');
-const account = require("./databases/account.js");
 
 //communicate with the frontend
 app.get('/pins', (req, res) => {
     Pin.find({}, (err, pinResult) => {
         if (pinResult) {
-            console.log(pinResult);
             res.send(pinResult);
         } else {
             res.send("Error: Pins Not Found");
@@ -42,37 +40,27 @@ app.get('/pins', (req, res) => {
 app.get('/accounts', (req, res) => {
     if (req.query.keyword) {
         Account.find({ username: req.query.keyword }, (err, accountResult) => {
-            console.log(accountResult);
-            if (accountResult) {
-                console.log(accountResult);
-                res.send(accountResult);
-            }
-            else {
-                res.send("NULL");
-            }
+            console.log(req.query.keyword);
+            res.send(accountResult);
         })
     }
     else {
         Account.find({}, (err, accountResult) => {
-            if (accountResult) {
-                console.log(accountResult);
-                res.send(accountResult);
-            }
-            else {
-                res.send("NULL");
-            }
+            res.send(accountResult);
         })
     }
 });
 
-app.post('/accounts', (req, res) => {
-    var newAccount = new Account;
-    newAccount.username = req.body.username;
-    newAccount.password = req.body.password;
-    newAccount.description = "new account";
-    newAccount.is_admin = false;
+app.post('/register', (req, res) => {
+    var newAccount = new Account({
+        username: req.body.username,
+        password: req.body.password,
+        description: req.body.description,
+        is_admin: req.body.is_admin
+    });
     newAccount.save();
     console.log("Account " + newAccount.username + " has been saved");
+    res.send("Account " + newAccount.username + " has been saved")
 });
 
 app.listen(6069);

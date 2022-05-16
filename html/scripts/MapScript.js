@@ -37,32 +37,4 @@ function GetPinsFromDatabase() {
     xhttp.send();
 }
 
-function GetAccountsFromDatabase(search = "") {
-    const xhttp = new XMLHttpRequest();
-
-    var accountArr = [];
-
-    xhttp.onload = function () {
-        if (this.responseText != "NULL") {
-            accountArr = JSON.parse(this.responseText);
-            console.log(accountArr.length)
-        }
-        else {
-            return "NULL";
-        }
-    }
-
-    xhttp.open("GET", "http://localhost:6069/accounts?keyword=" + search, true);
-    xhttp.send();
-
-    console.log(accountArr.length);
-    return accountArr;
-}
-
-function PushAccountToDatabase(account) {
-    const xhttp = new XMLHttpRequest();
-
-    xhttp.open("POST", "http://localhost:6069/accounts", true);
-    xhttp.send(JSON.stringify(account));
-}
-
+GetPinsFromDatabase();
