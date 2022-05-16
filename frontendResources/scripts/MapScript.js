@@ -38,4 +38,3 @@ function GetPinsFromDatabase() {
 }
 
 GetPinsFromDatabase();
-

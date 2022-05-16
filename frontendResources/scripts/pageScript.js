@@ -9,7 +9,6 @@ var usernameInput = document.getElementById('uName');
 var passwordInput = document.getElementById('pWord');
 var searchInput = document.getElementsByName('searchbar');
 
-
 //event functions
 function toProfile() {
   window.location = "html/profile.html"
