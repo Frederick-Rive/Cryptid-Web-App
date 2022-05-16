@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 
 const accountSchema = new mongoose.Schema({
-    type: String,
     username: String,
     password: String,
     description: String,
@@ -15,4 +14,4 @@ accountSchema.methods.checkPassword = function checkPassword(input) {
     return input == this.password;
 }
 
-module.export = mongoose.model('Account', accountSchema);
+module.exports = mongoose.model('Account', accountSchema, "Accounts");
