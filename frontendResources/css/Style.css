@@ -1,0 +1,84 @@
+
+/* base css */
+html, body {
+  height: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+
+/* NOTE: Map Page */
+
+
+/* Map CSS */
+#Mapid {
+  margin-left: 18em;
+  height:100%;
+  width: 90%%;
+}
+
+/* Sidebar CSS */
+.mapSidebar {
+  margin-left: 0;
+  height: 100%;
+  width: 280px;
+  float: left;
+  background-color: lightGrey;
+  padding-right: 20px;
+}
+
+/* Test Login in the side bar */
+#PH-testLogin {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 40px;
+}
+
+#PH-loginButtons {
+  display: flex;
+  flex-direction: row;
+}
+
+#searchbar {
+  margin-top: 40px;
+}
+
+
+/* NOTE: Profile Page*/
+
+#background {
+  height: 100%;
+  background-color: #43464B;
+}
+
+#maplink {
+  color: black;
+}
+
+.centerpiece {
+  height: 100%;
+  margin-left: 25em;
+  margin-right: 25em;
+  background-color: black;
+  color: green;
+}
+
+.topBanner {
+  background-color: #43464B;
+}
+
+.bannerText {
+  color: black;
+}
+
+#banner-center_seperator {
+  margin-bottom: 0px;
+}
+
+.activityFeedItem {
+  padding: 10px;
+  border: 1px solid green;
+  margin-left: 25px;
+  margin-right: 25px;
+
+}

@@ -33,7 +33,7 @@ app.get('/pins', (req, res) => {
         } else {
             res.send("Error: Pins Not Found");
         }
-        
+
     })
 });
 
