@@ -74,6 +74,16 @@ html, body {
   margin-bottom: 0px;
 }
 
+#itemCreation {
+  display: flex;
+  flex-direction: column;
+}
+
+#imageCreation {
+  width: 100%;
+  height: 50px;
+}
+
 .activityFeedItem {
   padding: 10px;
   border: 1px solid green;

@@ -9,9 +9,13 @@
     <div id="background">
       <!-- Content in center of page -->
       <div class="centerpiece">
+
+        <!-- Top Banner of the Profile -->
         <div class="topBanner">
           <!-- Link back to Map -->
           <a id="maplink" href="map.html">PH-Map link</a>
+          <!-- Profile Pic -->
+          <img id="profilePic" src="" alt="">
           <!-- Profile name -->
           <h1 class="bannerText">PH-Person Name</h1>
           <hr id="banner-center_seperator"style="width: 100%;">
@@ -19,6 +23,15 @@
 
         <!-- Activity Feed -->
         <div id="activityFeed">
+          <!-- Create activityfeeditem -->
+          <div id="itemCreation">
+            <input id="imageCreation" type="image" name="cryptidImage"> <!-- Make a place Image here image-->
+            <input type="text" name="itemDescription" placeholder="Description">
+            <input type="text" name="locationDataX" placeholder="x co-ords">
+            <input type="text" name="locationDataY" placeholder="y co-ords">
+            <input type="text" name="timeData" placeholder="time">
+            <input type="button" name="confirm" value="Confirm">
+          </div>
           <!-- Activity feed -->
           <h2>PH-Activity Feed</h2>
           <!-- Example Activity feed item -->
