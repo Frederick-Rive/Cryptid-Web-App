@@ -11,7 +11,7 @@ var searchInput = document.getElementsByName('searchbar');
 
 //event functions
 function toProfile() {
-  window.location = "html/profile.html"
+  window.location = "./profile.html"
 }
 
 function logIn() {
@@ -32,15 +32,20 @@ function logIn() {
             thisAccount = accountArr[i];
             if (thisAccount.password == password) {
                 console.log("Success! you have (hypothetically) logged in!");
+
+                const xhttp2 = new XMLHttpRequest();
+                xhttp2.open("POST", "http://localhost:6069/account", true);
+                xhttp2.setRequestHeader('Content-type', 'application/json');
+                xhttp2.send(JSON.stringify(thisAccount));
+
+                toProfile();
                 return;
             }
         }
         console.log("Your password was incorrect, sorry!");
     }
 
-    console.log("http://localhost:6069/accounts?keyword=" + username);
-
-    xhttp.open("GET", "http://localhost:6069/accounts?keyword=" + username, true);
+    xhttp.open("GET", "http://localhost:6069/login?keyword=" + username, true);
     xhttp.send();
 }
 
