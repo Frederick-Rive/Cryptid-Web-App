@@ -1,10 +1,12 @@
 const mongoose = require('mongoose');
 
 const accountSchema = new mongoose.Schema({
-    type: String,
+    _id: mongoose.Schema.Types.ObjectId,
     username: String,
     password: String,
     description: String,
+    profilepic: mongoose.Schema.Types.ObjectId,
+    encounterlog: [mongoose.Schema.Types.ObjectId],
     is_admin: Boolean
 }, {
     versionKey: false
@@ -15,4 +17,4 @@ accountSchema.methods.checkPassword = function checkPassword(input) {
     return input == this.password;
 }
 
-module.export = mongoose.model('Account', accountSchema);
+module.exports = mongoose.model('Account', accountSchema, "Accounts");
