@@ -10,7 +10,7 @@ const encounterSchema = new mongoose.Schema({
     datetime: String,
     images: [mongoose.Schema.Types.ObjectId],
     comments: [mongoose.Schema.Types.ObjectId],
-    rating: Int32,
+    rating: Number,
     is_reported: Boolean
 }, {
     versionKey: false

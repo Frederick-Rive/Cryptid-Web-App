@@ -24,8 +24,8 @@ mongoose.connect('mongodb+srv://Freddie:cryptids@cryptids.bekuf.mongodb.net/myFi
 //get schemas from other files
 const Pin = require('./databases/pin.js');
 const Account = require('./databases/account.js');
-const Encounter = require('./databases.encounter.js');
-const Comment = require('./databases.comment.js');
+const Encounter = require('./databases/encounter.js');
+const Comment = require('./databases/comment.js');
 
 var userAccount = new Account({
     _id: new mongoose.Types.ObjectId,
@@ -92,6 +92,7 @@ app.post('/account', (req, res) => {
 app.get('/encounter', (req, res) => {
     if (req.query.keyword) {
         Encounter.findOne({ _id: req.query.keyword }, (err, encounterResult) => {
+            console.log(encounterResult);
             res.send(encounterResult);
         })
     }

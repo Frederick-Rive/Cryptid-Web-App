@@ -19,14 +19,17 @@ function GetUserAccount() {
 function UpdateProfilePage() {
     name.innerHTML = userAccount.username;
 
-    var activityFeed = "<h2>PH-Activity Feed</h2>";
-    var activitiesIDs = userAccount.encounterlog;
-    for (i = 0; i < activitiesJSON.length; i++) {
+    activitylog.innerHTML = "<h2>PH-Activity Feed</h2>";
+    for (i = 0; i < userAccount.encounterlog.length; i++) {
         const xhttp = new XMLHttpRequest();
-        activityFeed += "<div class='activityFeedItem'> <h3>" + activities[i].title + "</h3> <p>" + activities[i].description + "</p><p>" + activities[i].location + "<br>" + activities[i].datetime + "</p>";
+        xhttp.onload = function () {
+            thisActivity = JSON.parse(this.responseText);
+            console.log(thisActivity);
+            activitylog.innerHTML += "<div class='activityFeedItem'> <h3>" + thisActivity.title + "</h3> <p>" + thisActivity.description + "</p><p>" + thisActivity.location + "<br>" + thisActivity.datetime + "</p>";
+        }
+        xhttp.open("GET", "http://localhost:6069/encounter?keyword=" + userAccount.encounterlog[i], true);
+        xhttp.send();
     }
-
-    activitylog.innerHTML = activityFeed;
 }
 
 GetUserAccount();

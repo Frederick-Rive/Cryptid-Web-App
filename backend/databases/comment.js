@@ -6,7 +6,7 @@ const encounterSchema = new mongoose.Schema({
     user: mongoose.Schema.Types.ObjectId,
     title: String,
     text: String,
-    is_reported: bool
+    is_reported: Boolean
 }, {
     versionKey: false
 });
