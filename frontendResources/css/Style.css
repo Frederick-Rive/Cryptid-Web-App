@@ -2,8 +2,12 @@
 /* base css */
 html, body {
   height: 100%;
+  width: 100%
     padding: 0;
     margin: 0;
+
+    height: 100%;
+    background-color: #43464B;
 }
 
 /*  General CSS  */
@@ -21,23 +25,31 @@ html, body {
   border-left: 1px solid #CCCCCC;
 }
 
+/* responsive website Css */
 
+.resp-p {
+  font-size: 1.3vw;
+}
+
+.resp-h {
+  font-size: 1.5vw;
+}
 
 /* NOTE: Map Page */
 
 
 /* Map CSS */
 #Mapid {
-  margin-left: 18em;
+  margin-left: 25%;
   height:100%;
-  width: 80%;
+  width: 75%;
 }
 
 /* Sidebar CSS */
 .mapSidebar {
   margin-left: 0;
   height: 100%;
-  width: 303px;
+  width: 25%;
   float: left;
   background-color: lightGrey;
 }
@@ -61,20 +73,16 @@ html, body {
 
 /* NOTE: Profile Page*/
 
-.background {
-  height: 100%;
-  background-color: #43464B;
-}
-
 #maplink {
   color: black;
 }
 
 .centerpiece {
   height: 100%;
-  margin-left: 25em;
-  margin-right: 25em;
+  margin-left: 25%;
+  margin-right: 25%;
   background-color: black;
+  padding-bottom: 10%;
   color: green;
 }
 
@@ -123,24 +131,33 @@ html, body {
 }
 
 .imgSettings {
+  padding-left: 5px;
+  padding-right: 5px;
   display: flex;
   flex-direction: row:
 }
 
 #profilePicSettings {
-  width: 236px;
-  height: 236px;
-  padding-bottom: 5px;
+  width: 25%;
+  height: 25%;
+  padding-bottom: 20%;
+  padding-top: 20%;
+  justify-content: flex-start;
 }
 
 #or {
-  font-size: 30px;
-  padding-top: 80px;
+  font-size: 2vw;
+  padding-bottom: 20%;
+  padding-top: 20%;
   padding-left: 100px;
   padding-right: 100px;
+  justify-content: center;
 }
 
 #defaultProfilePic {
-  width: 236px;
-  height: 236px;
+  width: 25%;
+  height: 25%;
+  padding-bottom: 20%;
+  padding-top: 20%;
+  justify-content: flex-end;
 }
