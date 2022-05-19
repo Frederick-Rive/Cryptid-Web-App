@@ -18,18 +18,23 @@ var title = "TestPinA";
 var testmark = L.marker(coordinates).bindPopup(title).addTo(map);
 testmark.addTo(map);
 
-const xhttp = new XMLHttpRequest();
+//Functions for communicating with the backend
+function GetPinsFromDatabase() {
+    const xhttp = new XMLHttpRequest();
 
-xhttp.onload = function () {
-    var pin = JSON.parse(this.responseText);
-    coordinates = pin.coordinates;
-    title = pin.title;
-    console.log(title);
-    // NOTE: Marker Example
-    var testmark = L.marker(coordinates).bindPopup(title).addTo(map);
-    testmark.addTo(map);
+    xhttp.onload = function () {
+        var pinArr = JSON.parse(this.responseText);
+        for (i = 0; i < pinArr.length; i++) {
+            var pin = pinArr[i];
+
+            // NOTE: Marker Example
+            var testmark = L.marker(pin.coordinates).bindPopup(pin.title).addTo(map);
+            testmark.addTo(map);
+        }
+    }
+
+    xhttp.open("GET", "http://localhost:6069/pins", true);
+    xhttp.send();
 }
 
-xhttp.open("GET", "http://localhost:6069/pins", true);
-xhttp.send();
-
+GetPinsFromDatabase();
