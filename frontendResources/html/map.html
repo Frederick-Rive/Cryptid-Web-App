@@ -36,19 +36,12 @@
         <label for="uName">Username:</label>
         <input type="text" id="uName" value="">
         <label for="pWord">Password:</label>
-<<<<<<< HEAD
-        <input type="text" name="pWord" value="">
-         <div id="PH-loginButtons">
-           <button id="loginButton" type="button" name="loginButton">Login</button>
-           <button type="button" name="registerButton">Register</button>
-         </div>
-=======
         <input type="text" id="pWord" value="">
+
         <div id="PH-loginButtons">
             <button type="button" name='loginButton' id="loginButton" onclick="logIn()">Login</button>
             <button type="button" name="registerButton" onclick="register()">Register</button>
         </div>
->>>>>>> a0c0e495d541a975976bfecfadccf6c5967e69ea
       </div>
 
          <hr style="width:90%;text-align:left;margin-left:0">
@@ -64,6 +57,13 @@
          <a class="linkButton" href="./profile.html">PH-Profile link</a>
          <a class="linkButton" href="./settings.html">PH-Settings link</a>
 
+
+         <h2>Pin Information</h2>
+         <hr style="width: 60%;">
+         <!-- The currently showing descripton on the map page-->
+         <p id="pinLocation">[PH] location</p>
+         <p id="pinTime">[PH] time</p>
+         <p id="pinInfo">[PH] description</p>
       </div>
 
     <!--div that contians the map-->
@@ -72,7 +72,7 @@
     <!-- NOTE: Linking javascript for use -->
 
     <!--linking the Script js File for use with the div containing the map-->
-    <script src="../scripts/mapScript.js" charset="utf-8"></script>
+    <script src="../scripts/MapScript.js" charset="utf-8"></script>
 
     <!--linking leaflet providers-->
     <script src="../scripts/leaflet-providers.js"></script>
