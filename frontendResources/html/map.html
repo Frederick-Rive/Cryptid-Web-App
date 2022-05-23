@@ -29,41 +29,39 @@
 
 
     <!--creating divs for the Map and its Sidebar-->
-    <div class="mapSidebar">
+      <div class="mapSidebar">
 
-      <!-- placeholder: buttons nonfunctional -->
-      <div id="PH-testLogin">
-        <label for="uName">Username:</label>
-        <input type="text" id="uName" value="">
-        <label for="pWord">Password:</label>
-        <input type="text" id="pWord" value="">
+          <!-- placeholder: buttons nonfunctional -->
+          <div id="PH-testLogin">
+              <label for="uName">Username:</label>
+              <input type="text" id="uName" value="">
+              <label for="pWord">Password:</label>
+              <input type="text" id="pWord" value="">
+              <div id="PH-loginButtons">
+                  <button id="loginButton" type="button" name="loginButton" onclick="logIn()">Login</button>
+                  <button type="button" name="registerButton" onclick="register()">Register</button>
+              </div>
+          </div>
 
-        <div id="PH-loginButtons">
-            <button type="button" name='loginButton' id="loginButton" onclick="logIn()">Login</button>
-            <button type="button" name="registerButton" onclick="register()">Register</button>
-        </div>
-      </div>
+          <hr style="width:90%;text-align:left;margin-left:0">
 
-         <hr style="width:90%;text-align:left;margin-left:0">
+          <!--search bar HTML-->
+          <div id="searchbar">
+              <input type="text" name="searchbar" value="search">
+              <button type="button" name="searchConfirm">Go</button>
+          </div>
 
-         <!--search bar HTML-->
-         <div id="searchbar">
-           <input type="text" name="searchbar" value="search">
-           <button type="button" name="searchConfirm">Go</button>
-         </div>
+          <hr style="width:90%;text-align:left;margin-left:0">
 
-         <hr style="width:90%;text-align:left;margin-left:0">
+          <a class="linkButton" href="./profile.html">PH-Profile link</a>
+          <a class="linkButton" href="./settings.html">PH-Settings link</a>
 
-         <a class="linkButton" href="./profile.html">PH-Profile link</a>
-         <a class="linkButton" href="./settings.html">PH-Settings link</a>
-
-
-         <h2>Pin Information</h2>
-         <hr style="width: 60%;">
-         <!-- The currently showing descripton on the map page-->
-         <p id="pinLocation">[PH] location</p>
-         <p id="pinTime">[PH] time</p>
-         <p id="pinInfo">[PH] description</p>
+          <h2>Pin Information</h2>
+          <hr style="width: 60%;">
+          <!-- The currently showing descripton on the map page-->
+          <p id="pinLocation">[PH] location</p>
+          <p id="pinTime">[PH] time</p>
+          <p id="pinInfo">[PH] description</p>
       </div>
 
     <!--div that contians the map-->
