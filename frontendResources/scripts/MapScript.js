@@ -13,9 +13,16 @@ Layer.addTo(map);
 
 var coordinates = [-41.2913, 174.7886];
 var title = "TestPinA";
+var desc = document.getElementById('pinInfo');
+
+function onMarkerClick(e) {
+	desc.textContent = "new description";
+	console.log('click confirmed');
+}
+
 
 // NOTE: Marker Example
-var testmark = L.marker(coordinates).bindPopup(title).addTo(map);
+var testmark = L.marker(coordinates).bindPopup(title).on('dblclick', onMarkerClick).addTo(map);
 testmark.addTo(map);
 
 //Functions for communicating with the backend
