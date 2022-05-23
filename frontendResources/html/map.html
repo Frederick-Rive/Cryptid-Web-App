@@ -9,7 +9,7 @@
 <!--Linking CSS files-->
     <link rel="stylesheet" href="../css/Style.css">
 
-<!--Linking leaflet-->
+<!-- NOTE: Linking leaflet -->
 
 <!--leaflet's CSS-->
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css"
@@ -26,6 +26,8 @@
 
 
   <body>
+
+
     <!--creating divs for the Map and its Sidebar-->
     <div class="mapSidebar">
 
@@ -34,11 +36,19 @@
         <label for="uName">Username:</label>
         <input type="text" id="uName" value="">
         <label for="pWord">Password:</label>
+<<<<<<< HEAD
+        <input type="text" name="pWord" value="">
+         <div id="PH-loginButtons">
+           <button id="loginButton" type="button" name="loginButton">Login</button>
+           <button type="button" name="registerButton">Register</button>
+         </div>
+=======
         <input type="text" id="pWord" value="">
         <div id="PH-loginButtons">
             <button type="button" name='loginButton' id="loginButton" onclick="logIn()">Login</button>
             <button type="button" name="registerButton" onclick="register()">Register</button>
         </div>
+>>>>>>> a0c0e495d541a975976bfecfadccf6c5967e69ea
       </div>
 
          <hr style="width:90%;text-align:left;margin-left:0">
