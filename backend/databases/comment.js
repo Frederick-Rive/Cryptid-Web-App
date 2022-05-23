@@ -4,7 +4,6 @@ const mongoose = require('mongoose');
 const encounterSchema = new mongoose.Schema({
     _id: mongoose.Schema.Types.ObjectId,
     user: mongoose.Schema.Types.ObjectId,
-    title: String,
     text: String,
     is_reported: Boolean
 }, {

@@ -7,6 +7,8 @@ const cors = require('cors');
 app.use(cors({
     origin: '*'
 }));
+const multer = require('multer');
+const GridFsStorage = require('multer-gridfs-storage');
 
 //connect to the database
 mongoose.connect('mongodb+srv://Freddie:cryptids@cryptids.bekuf.mongodb.net/myFirstDatabase?retryWrites=true&w=majority',
@@ -38,20 +40,32 @@ var userAccount = new Account({
 
 //communicate with the frontend
 app.get('/pins', (req, res) => {
-    Pin.find({}, (err, pinResult) => {
-        if (pinResult) {
-            res.send(pinResult);
-        } else {
-            res.send("Error: Pins Not Found");
-        }
+    if (req.query.keyword) {
+        console.log(req.query.keyword);
+        Pin.findOne({ title: req.query.keyword }, (err, pinResult) => {
+            if (pinResult) {
+                res.send(pinResult);
+            } else {
+                res.send("Error: Pin Not Found");
+            }
 
-    })
+        })
+    } else {
+        Pin.find({}, (err, pinResult) => {
+            if (pinResult) {
+                res.send(pinResult);
+            } else {
+                res.send("Error: Pins Not Found");
+            }
+
+        })
+    }
 });
 
 app.get('/login', (req, res) => {
     if (req.query.keyword) {
-        Account.find({ username: req.query.keyword }, (err, accountResult) => {
-            console.log(req.query.keyword);
+        Account.findOne({ username: req.query.keyword }, (err, accountResult) => {
+            console.log(accountResult);
             res.send(accountResult);
         })
     }
@@ -75,7 +89,13 @@ app.post('/register', (req, res) => {
 });
 
 app.get('/account', (req, res) => {
-    res.send(userAccount);
+    if (req.query.keyword) {
+        Account.findOne({ _id: req.query.keyword }, (err, accountResult) => {
+            res.send(accountResult);
+        })
+    } else {
+        res.send(userAccount);
+    }
 });
 
 app.post('/account', (req, res) => {
@@ -97,5 +117,14 @@ app.get('/encounter', (req, res) => {
         })
     }
 });
+
+app.get('/comment', (req, res) => {
+    if (req.query.keyword) {
+        Comment.findOne({ _id: req.query.keyword }, (err, commentResult) => {
+            console.log(commentResult);
+            res.send(commentResult);
+        })
+    }
+})
 
 app.listen(6069);
