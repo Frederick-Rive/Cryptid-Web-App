@@ -4,6 +4,7 @@ var map = L.map('Mapid').setView([-41.2924, 174.7787], 13);
 //adding a tile layer to the map
 var OpenStreetMap_Mapnik = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 	maxZoom: 16,
+	worldCopyJump: true,
 	attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 });
 
@@ -26,6 +27,13 @@ function onMarkerClick(e) {
 	time.textContent = "[PH] new time";
 	loc.textContent = "[PH] new location";
 	console.log('click confirmed');
+}
+
+function onMapClick(e) {
+var lat = e.latlng.lat;
+var lng = e.latlng.lng;
+
+var tooltip = new L.tooltip(offset(lat, lng)).setContent("test").openOn(map);
 }
 
 
