@@ -37,6 +37,24 @@ function UpdateProfilePage() {
     }
 }
 
+function convertImg(input) {
+    var url = input.value;
+    console.log(url);
+    var ext = url.substring(url.lastIndexOf('.') + 1).toLowerCase();
+
+    if (input.files && input.files[0] && (ext == "png" || ext == "jpeg" || ext == "jpg")) {
+        const reader = new FileReader();
+
+        reader.onload = function () {
+            console.log(reader.result);
+        }
+
+        reader.readAsDataURL(input.files[0]);
+    } else {
+        console.log("an error has occured");
+    }
+}
+
 function GetComment(commentID) {
     const xhttp = new XMLHttpRequest();
     xhttp.onload = function () {
