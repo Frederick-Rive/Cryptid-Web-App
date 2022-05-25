@@ -70,6 +70,17 @@ html, body {
   margin-top: 40px;
 }
 
+/* Pin Creation */
+#pinCreation {
+  display: none;
+  flex-direction: column;
+  z-index: 9;
+}
+
+#openButton {
+  width: 25%;
+  margin-left: 10px;
+}
 
 /* NOTE: Profile Page*/
 

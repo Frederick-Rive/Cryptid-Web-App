@@ -52,18 +52,32 @@
            <button type="button" name="searchConfirm">Go</button>
          </div>
 
-         <hr style="width:90%;text-align:left;margin-left:0">
+         <hr style="width:90%;text-align:left;margin-left:0;">
 
          <a class="linkButton" href="./profile.html">PH-Profile link</a>
          <a class="linkButton" href="./settings.html">PH-Settings link</a>
 
 
          <h2>Pin Information</h2>
-         <hr style="width: 60%;">
+         <hr style="width: 60%; margin-left: 0;">
          <!-- The currently showing descripton on the map page-->
          <p id="pinLocation">[PH] location</p>
          <p id="pinTime">[PH] time</p>
          <p id="pinInfo">[PH] description</p>
+
+         <hr style="width:60%; margin-left:0;">
+
+         <button id="openButton" type="button" name="open" onclick="OpenPinCreator()">New Pin</button>
+         <!-- Pin creation form on Map page -->
+         <form Id="pinCreation" action="index.html" method="post">
+           <input type="file" name="fileUpload" value="">
+           <input type="text" name="descriptonMap" placeholder="Description">
+           <input type="text" name="Longitude" placeholder="Longitude">
+           <input type="text" name="Latitude" placeholder="Latitude">
+           <input type="text" name="Time" placeholder="Time">
+           <input type="button" name="pinCreationConfirm" value="confirm">
+           <button type="button" name="close" onclick="ClosePinCreator()">close</button>
+         </form>
       </div>
 
     <!--div that contians the map-->

@@ -2,12 +2,22 @@
 var loginButton = document.getElementsByName('loginButton');
 var registerButton = document.getElementsByName('registerButton');
 var searchConfirm = document.getElementsByName('searchConfirm');
-var profile = document.getElementsByName('PH-ProfileLink')
+var profile = document.getElementsByName('PH-ProfileLink');
+var newPin = document.getElementsByName('newPin');
 
 //getting inputs
 var usernameInput = document.getElementById('uName');
 var passwordInput = document.getElementById('pWord');
 var searchInput = document.getElementsByName('searchbar');
+
+// New pin creation (map)
+function OpenPinCreator() {
+  document.getElementById('pinCreation').style.display = "flex";
+}
+
+function ClosePinCreator() {
+  document.getElementById('pinCreation').style.display = "none";
+}
 
 //event functions
 function toProfile() {
