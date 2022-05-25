@@ -13,6 +13,7 @@ var OpenStreetMap_Mapnik = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{
 var Layer = OpenStreetMap_Mapnik
 Layer.addTo(map);
 
+// Content for TestPinA
 var coordinates = [-41.2913, 174.7886];
 var title = "TestPinA";
 // Gets the current pin information on the map page
@@ -29,13 +30,11 @@ function onMarkerClick(e) {
 	console.log('click confirmed');
 }
 
-function onMapClick(e) {
-var lat = e.latlng.lat;
-var lng = e.latlng.lng;
-
-var tooltip = new L.tooltip(offset(lat, lng)).setContent("test").openOn(map);
-}
-
+//display Latitude and Longitude on map when clicked
+map.on('click', function(e) {
+		var test = L.popup().setLatLng(e.latlng).setContent(`Latitude: ${e.latlng.lat}<br> Longitude: ${e.latlng.lng}`).openOn(map);
+	map.openPopup(test);
+});
 
 const desc = document.getElementById('pinInfo');
 const time = document.getElementById('pinTime');
