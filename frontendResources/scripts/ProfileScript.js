@@ -19,14 +19,56 @@ function GetUserAccount() {
 function UpdateProfilePage() {
     name.innerHTML = userAccount.username;
 
-    var activityFeed = "<h2>PH-Activity Feed</h2>";
-    var activitiesIDs = userAccount.encounterlog;
-    for (i = 0; i < activitiesJSON.length; i++) {
+    activitylog.innerHTML = "<h2>PH-Activity Feed</h2>";
+    for (i = 0; i < userAccount.encounterlog.length; i++) {
         const xhttp = new XMLHttpRequest();
-        activityFeed += "<div class='activityFeedItem'> <h3>" + activities[i].title + "</h3> <p>" + activities[i].description + "</p><p>" + activities[i].location + "<br>" + activities[i].datetime + "</p>";
+        xhttp.onload = function () {
+            thisActivity = JSON.parse(this.responseText);
+            console.log(thisActivity);
+            activitylog.innerHTML += "<div class='activityFeedItem'> <h3>" + thisActivity.title + "</h3> <p>" + thisActivity.description + "</p><p>" + thisActivity.location + "<br>" + thisActivity.datetime + "</p>";
+            activitylog.innerHTML += "<div class='comments'><h2> comments:</h2><hr style='width:75%; margin:0;border-color:green;'>";
+            for (o = 0; o < thisActivity.comments.length; o++) {
+                GetComment(thisActivity.comments[o], activitylog);
+            }
+        }
+        activitylog.innerHTML += "</div>";
+        xhttp.open("GET", "http://localhost:6069/encounter?keyword=" + userAccount.encounterlog[i], true);
+        xhttp.send();
     }
+}
 
-    activitylog.innerHTML = activityFeed;
+function convertImg(input) {
+    var url = input.value;
+    console.log(url);
+    var ext = url.substring(url.lastIndexOf('.') + 1).toLowerCase();
+
+    if (input.files && input.files[0] && (ext == "png" || ext == "jpeg" || ext == "jpg")) {
+        const reader = new FileReader();
+
+        reader.onload = function () {
+            console.log(reader.result);
+        }
+
+        reader.readAsDataURL(input.files[0]);
+    } else {
+        console.log("an error has occured");
+    }
+}
+
+function GetComment(commentID) {
+    const xhttp = new XMLHttpRequest();
+    xhttp.onload = function () {
+        thisComment = JSON.parse(this.responseText);
+        const xhttp2 = new XMLHttpRequest();
+        xhttp2.onload = function () {
+            thisAccount = JSON.parse(this.responseText);
+            activitylog.innerHTML += "<div class='comment'><h1>" + thisAccount.username + "</h1><p>" + thisComment.text + "</p></div>"
+        }
+        xhttp2.open("GET", "http://localhost:6069/account?keyword=" + thisComment.user, true);
+        xhttp2.send();
+    }
+    xhttp.open("GET", "http://localhost:6069/comment?keyword=" + commentID, true);
+    xhttp.send();
 }
 
 GetUserAccount();

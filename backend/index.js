@@ -7,6 +7,16 @@ const cors = require('cors');
 app.use(cors({
     origin: '*'
 }));
+const multer = require('multer');
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, uploads)
+    },
+    filename: (req, file, cb) => {
+        cb(null, file.fieldname + '-' + Date.now)
+    }
+});
+const upload = multer({ storage: storage });
 
 //connect to the database
 mongoose.connect('mongodb+srv://Freddie:cryptids@cryptids.bekuf.mongodb.net/myFirstDatabase?retryWrites=true&w=majority',
@@ -24,8 +34,9 @@ mongoose.connect('mongodb+srv://Freddie:cryptids@cryptids.bekuf.mongodb.net/myFi
 //get schemas from other files
 const Pin = require('./databases/pin.js');
 const Account = require('./databases/account.js');
-const Encounter = require('./databases.encounter.js');
-const Comment = require('./databases.comment.js');
+const Encounter = require('./databases/encounter.js');
+const Comment = require('./databases/comment.js');
+const Image = require('./databases/image.js');
 
 var userAccount = new Account({
     _id: new mongoose.Types.ObjectId,
@@ -38,20 +49,32 @@ var userAccount = new Account({
 
 //communicate with the frontend
 app.get('/pins', (req, res) => {
-    Pin.find({}, (err, pinResult) => {
-        if (pinResult) {
-            res.send(pinResult);
-        } else {
-            res.send("Error: Pins Not Found");
-        }
+    if (req.query.keyword) {
+        console.log(req.query.keyword);
+        Pin.findOne({ title: req.query.keyword }, (err, pinResult) => {
+            if (pinResult) {
+                res.send(pinResult);
+            } else {
+                res.send("Error: Pin Not Found");
+            }
 
-    })
+        })
+    } else {
+        Pin.find({}, (err, pinResult) => {
+            if (pinResult) {
+                res.send(pinResult);
+            } else {
+                res.send("Error: Pins Not Found");
+            }
+
+        })
+    }
 });
 
 app.get('/login', (req, res) => {
     if (req.query.keyword) {
-        Account.find({ username: req.query.keyword }, (err, accountResult) => {
-            console.log(req.query.keyword);
+        Account.findOne({ username: req.query.keyword }, (err, accountResult) => {
+            console.log(accountResult);
             res.send(accountResult);
         })
     }
@@ -75,7 +98,13 @@ app.post('/register', (req, res) => {
 });
 
 app.get('/account', (req, res) => {
-    res.send(userAccount);
+    if (req.query.keyword) {
+        Account.findOne({ _id: req.query.keyword }, (err, accountResult) => {
+            res.send(accountResult);
+        })
+    } else {
+        res.send(userAccount);
+    }
 });
 
 app.post('/account', (req, res) => {
@@ -92,9 +121,29 @@ app.post('/account', (req, res) => {
 app.get('/encounter', (req, res) => {
     if (req.query.keyword) {
         Encounter.findOne({ _id: req.query.keyword }, (err, encounterResult) => {
+            console.log(encounterResult);
             res.send(encounterResult);
         })
     }
+});
+
+app.get('/comment', (req, res) => {
+    if (req.query.keyword) {
+        Comment.findOne({ _id: req.query.keyword }, (err, commentResult) => {
+            console.log(commentResult);
+            res.send(commentResult);
+        })
+    }
+});
+
+app.get('/image', (req, res) => {
+    Image.find({}, (err, items) => {
+        if (err) {
+            console.log(err);
+        } else {
+            res.render('images')
+        }
+    })
 });
 
 app.listen(6069);
