@@ -5,7 +5,8 @@ const pinSchema = new mongoose.Schema({
     _id: mongoose.Schema.Types.ObjectId,
     coordinates: [Number],
     title: String,
-    cryptid: String
+    cryptid: String,
+    encounter: mongoose.Schema.Types.ObjectId
 }, {
     versionKey: false
 });
