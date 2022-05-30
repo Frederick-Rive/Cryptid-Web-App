@@ -6,6 +6,7 @@ const encounterSchema = new mongoose.Schema({
     user: mongoose.Schema.Types.ObjectId,
     title: String,
     description: String,
+    cryptid: String,
     location: String,
     datetime: String,
     images: [mongoose.Schema.Types.ObjectId],

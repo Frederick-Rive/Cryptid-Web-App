@@ -28,71 +28,73 @@
   <body>
 
 
-    <!--creating divs for the Map and its Sidebar-->
-    <div class="mapSidebar">
+      <!--creating divs for the Map and its Sidebar-->
+      <div class="mapSidebar">
 
-      <!-- placeholder: buttons nonfunctional -->
-      <div id="PH-testLogin">
-        <label for="uName">Username:</label>
-        <input type="text" id="uName" value="">
-        <label for="pWord">Password:</label>
-        <input type="text" id="pWord" value="">
+          <!-- placeholder: buttons nonfunctional -->
+          <div id="PH-testLogin">
+              <label for="uName">Username:</label>
+              <input type="text" id="uName" value="">
+              <label for="pWord">Password:</label>
+              <input type="text" id="pWord" value="">
 
-        <div id="PH-loginButtons">
-            <button type="button" name='loginButton' id="loginButton" onclick="logIn()">Login</button>
-            <button type="button" name="registerButton" onclick="register()">Register</button>
-        </div>
+              <div id="PH-loginButtons">
+                  <button type="button" name='loginButton' id="loginButton" onclick="logIn()">Login</button>
+                  <button type="button" name="registerButton" onclick="register()">Register</button>
+              </div>
+          </div>
+
+          <hr style="width:90%;text-align:left;margin-left:0">
+
+          <!--search bar HTML-->
+          <div id="searchbar">
+              <input type="text" name="searchbar" value="search">
+              <button type="button" name="searchConfirm">Go</button>
+          </div>
+
+          <hr style="width:90%;text-align:left;margin-left:0;">
+
+          <a class="linkButton" href="./profile.html">PH-Profile link</a>
+          <a class="linkButton" href="./settings.html">PH-Settings link</a>
+
+
+          <h2>Pin Information</h2>
+          <hr style="width: 60%; margin-left: 0;">
+          <!-- The currently showing descripton on the map page-->
+          <p id="pinLocation">[PH] location</p>
+          <p id="pinTime">[PH] time</p>
+          <p id="pinInfo">[PH] description</p>
+
+          <hr style="width:60%; margin-left:0;">
+
+          <button id="openButton" type="button" name="open" onclick="OpenPinCreator()">New Pin</button>
+          <!-- Pin creation form on Map page -->
+          <form Id="pinCreation" action="index.html" method="post">
+              <input type="text" id="pinName" placeholder="Title">
+              <input type="text" id="pinCryptid" placeholder="Cryptid">
+              <input type="text" id="descriptionMap" placeholder="Description">
+              <input type="text" id="Latitude" placeholder="Latitude">
+              <input type="text" id="Longitude" placeholder="Longitude">
+              <input type="text" id="Time" placeholder="Time">
+              <h2>Images</h2>
+              <input type="file" id="imageUpload" value="" accept=".png,.jpeg,.jpg">
+              <input type="button" id="pinCreationConfirm" value="confirm" onclick="CreatePin()">
+              <button type="button" id="close" onclick="ClosePinCreator()">close</button>
+          </form>
       </div>
 
-         <hr style="width:90%;text-align:left;margin-left:0">
+      <!--div that contians the map-->
+      <div id="Mapid"></div>
 
-         <!--search bar HTML-->
-         <div id="searchbar">
-           <input type="text" name="searchbar" value="search">
-           <button type="button" name="searchConfirm">Go</button>
-         </div>
+      <!-- NOTE: Linking javascript for use -->
+      <!-- Linking pageScript.js -->
+      <script src="../scripts/pageScript.js" charset="utf-8"></script>
 
-         <hr style="width:90%;text-align:left;margin-left:0;">
+      <!--linking the Script js File for use with the div containing the map-->
+      <script src="../scripts/MapScript.js" charset="utf-8"></script>
 
-         <a class="linkButton" href="./profile.html">PH-Profile link</a>
-         <a class="linkButton" href="./settings.html">PH-Settings link</a>
-
-
-         <h2>Pin Information</h2>
-         <hr style="width: 60%; margin-left: 0;">
-         <!-- The currently showing descripton on the map page-->
-         <p id="pinLocation">[PH] location</p>
-         <p id="pinTime">[PH] time</p>
-         <p id="pinInfo">[PH] description</p>
-
-         <hr style="width:60%; margin-left:0;">
-
-         <button id="openButton" type="button" name="open" onclick="OpenPinCreator()">New Pin</button>
-         <!-- Pin creation form on Map page -->
-         <form Id="pinCreation" action="index.html" method="post">
-           <input type="file" name="fileUpload" value="">
-           <input type="text" name="descriptonMap" placeholder="Description">
-           <input type="text" name="Longitude" placeholder="Longitude">
-           <input type="text" name="Latitude" placeholder="Latitude">
-           <input type="text" name="Time" placeholder="Time">
-           <input type="button" name="pinCreationConfirm" value="confirm">
-           <button type="button" name="close" onclick="ClosePinCreator()">close</button>
-         </form>
-      </div>
-
-    <!--div that contians the map-->
-    <div id="Mapid"></div>
-
-    <!-- NOTE: Linking javascript for use -->
-
-    <!--linking the Script js File for use with the div containing the map-->
-    <script src="../scripts/MapScript.js" charset="utf-8"></script>
-
-    <!--linking leaflet providers-->
-    <script src="../scripts/leaflet-providers.js"></script>
-
-    <!-- Linking pageScript.js -->
-    <script src="../scripts/pageScript.js" charset="utf-8"></script>
+      <!--linking leaflet providers-->
+      <script src="../scripts/leaflet-providers.js"></script>
 
   </body>
 

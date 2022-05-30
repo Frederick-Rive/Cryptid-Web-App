@@ -3,25 +3,33 @@ var loginButton = document.getElementsByName('loginButton');
 var registerButton = document.getElementsByName('registerButton');
 var searchConfirm = document.getElementsByName('searchConfirm');
 var profile = document.getElementsByName('PH-ProfileLink');
-var newPin = document.getElementsByName('newPin');
 
 //getting inputs
 var usernameInput = document.getElementById('uName');
 var passwordInput = document.getElementById('pWord');
 var searchInput = document.getElementsByName('searchbar');
 
-// New pin creation (map)
-function OpenPinCreator() {
-  document.getElementById('pinCreation').style.display = "flex";
-}
-
-function ClosePinCreator() {
-  document.getElementById('pinCreation').style.display = "none";
-}
-
 //event functions
 function toProfile() {
   window.location = "./profile.html"
+}
+
+function convertImg(input) {
+    var url = input.value;
+    console.log(url);
+    var ext = url.substring(url.lastIndexOf('.') + 1).toLowerCase();
+
+    if (input.files && input.files[0] && (ext == "png" || ext == "jpeg" || ext == "jpg")) {
+        const reader = new FileReader();
+
+        reader.onload = function () {
+            console.log(reader.result);
+        }
+
+        reader.readAsDataURL(input.files[0]);
+    } else {
+        console.log("an error has occured");
+    }
 }
 
 function logIn() {

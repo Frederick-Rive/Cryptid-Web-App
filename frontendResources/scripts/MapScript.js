@@ -13,37 +13,105 @@ var OpenStreetMap_Mapnik = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{
 var Layer = OpenStreetMap_Mapnik
 Layer.addTo(map);
 
-// Content for TestPinA
-var coordinates = [-41.2913, 174.7886];
-var title = "TestPinA";
-// Gets the current pin information on the map page
+//Pin display elements
 var desc = document.getElementById('pinInfo');
 var time = document.getElementById('pinTime');
 var loc = document.getElementById('pinLocation');
 
+//Pin addition elements
+var newPin = document.getElementById('newPin');
+var pinName = document.getElementById('pinName');
+var pinCryptid = document.getElementById('pinCryptid');
+var descriptionMap = document.getElementById('descriptionMap');
+var pinLng = document.getElementById('Longitude');
+var pinLat = document.getElementById('Latitude');
+var pinTime = document.getElementById('Time');
+var pinImages = document.getElementById('imageUpload');
 
-function onMarkerClick(e) {
-	//Updates the currently showing pin information the map page
-	desc.textContent = "[PH] new description";
-	time.textContent = "[PH] new time";
-	loc.textContent = "[PH] new location";
-	console.log('click confirmed');
-}
+pinName.value = 'evil road';
+pinCryptid.value = 'road';
+descriptionMap.value = 'theres no crossing?';
+pinTime.value = '23:30 25/03/2022';
+
+//New Pin indicator
+var pinIndicator;
+var creatingPin = false;
 
 //display Latitude and Longitude on map when clicked
-map.on('click', function(e) {
-		var test = L.popup().setLatLng(e.latlng).setContent(`Latitude: ${e.latlng.lat}<br> Longitude: ${e.latlng.lng}`).openOn(map);
-	map.openPopup(test);
+map.on('click', function (e) {
+    if (creatingPin) {
+        pinLat.value = e.latlng.lat;
+        pinLng.value = e.latlng.lng;
+        if (pinIndicator != undefined) {
+            map.removeLayer(pinIndicator);
+        }
+        pinIndicator = L.marker(e.latlng).addTo(map);
+    }
 });
 
-const desc = document.getElementById('pinInfo');
-const time = document.getElementById('pinTime');
-const loc = document.getElementById('pinLocation');
+// New pin creation (map)
+function OpenPinCreator() {
+    const xhttp = new XMLHttpRequest();
+    xhttp.onload = function () {
+        account = JSON.parse(this.responseText);
+        if (account.username != "NULL") {
+            document.getElementById('pinCreation').style.display = "flex";
+            creatingPin = true;
+        }
+        else {
+            console.log("SIGN IN");
+        }
+    }
+    xhttp.open("GET", "http://localhost:6069/account", true);
+    xhttp.send();
+}
 
-// NOTE: Marker Example
-// Creates a map marker with the description update event added to it on the map
-var testmark = L.marker(coordinates).bindPopup(title).on('dblclick', onMarkerClick).addTo(map);
-testmark.addTo(map);
+function ClosePinCreator() {
+    document.getElementById('pinCreation').style.display = "none";
+    if (pinIndicator != undefined) {
+        map.removeLayer(pinIndicator);
+    }
+    creatingPin = false;
+}
+
+function CreatePin() {
+    var url = pinImages.value;
+    console.log(url);
+    var ext = url.substring(url.lastIndexOf('.') + 1).toLowerCase();
+
+    if (pinImages.files && pinImages.files[0] && (ext == "png" || ext == "jpeg" || ext == "jpg")) {
+        const reader = new FileReader();
+
+        reader.onload = function () {
+            console.log(reader.result);
+            var pinJSON = {
+                title: pinName.value,
+                cryptid: pinCryptid.value,
+                description: descriptionMap.value,
+                coordinates: [pinLat.value, pinLng.value],
+                time: pinTime.value,
+                images: reader.result
+            };
+
+            console.log(pinJSON);
+
+            const xhttp = new XMLHttpRequest();
+
+            xhttp.onload = function () {
+                console.log(res.body);
+                ClosePinCreator();
+            }
+
+            xhttp.open("POST", "http://localhost:6069/pins", true);
+            xhttp.setRequestHeader('Content-type', 'application/json');
+            xhttp.send(JSON.stringify(pinJSON));
+        }
+
+        reader.readAsDataURL(pinImages.files[0]);
+    } else {
+        console.log("Error: Could not parse image file. Pin will be uploaded without an image");
+    }
+}
 
 function onMarkerClick(e) {
     //Updates the currently showing pin information the map page
