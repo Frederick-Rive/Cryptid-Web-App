@@ -28,11 +28,6 @@ var pinLat = document.getElementById('Latitude');
 var pinTime = document.getElementById('Time');
 var pinImages = document.getElementById('imageUpload');
 
-pinName.value = 'evil road';
-pinCryptid.value = 'road';
-descriptionMap.value = 'theres no crossing?';
-pinTime.value = '23:30 25/03/2022';
-
 //New Pin indicator
 var pinIndicator;
 var creatingPin = false;
