@@ -28,11 +28,6 @@ var pinLat = document.getElementById('Latitude');
 var pinTime = document.getElementById('Time');
 var pinImages = document.getElementById('imageUpload');
 
-pinName.value = 'evil road';
-pinCryptid.value = 'road';
-descriptionMap.value = 'theres no crossing?';
-pinTime.value = '23:30 25/03/2022';
-
 //New Pin indicator
 var pinIndicator;
 var creatingPin = false;
@@ -79,11 +74,10 @@ function CreatePin() {
     console.log(url);
     var ext = url.substring(url.lastIndexOf('.') + 1).toLowerCase();
 
-    if (pinImages.files && pinImages.files[0] && (ext == "png" || ext == "jpeg" || ext == "jpg")) {
+    if (pinImages.files && pinImages.files[0] && (ext == "png" || ext == "jpeg" || ext == "jpg") /*temp addition, remove*/ && false) {
         const reader = new FileReader();
 
         reader.onload = function () {
-            console.log(reader.result);
             var pinJSON = {
                 title: pinName.value,
                 cryptid: pinCryptid.value,
@@ -109,7 +103,27 @@ function CreatePin() {
 
         reader.readAsDataURL(pinImages.files[0]);
     } else {
-        console.log("Error: Could not parse image file. Pin will be uploaded without an image");
+        var pinJSON = {
+            title: pinName.value,
+            cryptid: pinCryptid.value,
+            description: descriptionMap.value,
+            coordinates: [pinLat.value, pinLng.value],
+            time: pinTime.value,
+            images: "haha"
+        };
+
+        console.log(pinJSON);
+
+        const xhttp = new XMLHttpRequest();
+
+        xhttp.onload = function () {
+            console.log(res.body);
+            ClosePinCreator();
+        }
+
+        xhttp.open("POST", "http://localhost:6069/pins", true);
+        xhttp.setRequestHeader('Content-type', 'application/json');
+        xhttp.send(JSON.stringify(pinJSON));
     }
 }
 
