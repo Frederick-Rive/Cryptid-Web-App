@@ -66,7 +66,7 @@ html, body {
   flex-direction: row;
 }
 
-#searchbar {
+#search {
   margin-top: 40px;
 }
 
@@ -75,6 +75,13 @@ html, body {
   display: none;
   flex-direction: column;
   z-index: 9;
+}
+
+/*Pin Display*/
+#pinDisplay {
+    display: none;
+    flex-direction: column;
+    z-index: 9;
 }
 
 #openButton {

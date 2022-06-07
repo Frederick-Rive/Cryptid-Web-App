@@ -3,7 +3,8 @@ const mongoose = require("mongoose");
 const express = require("express");
 const app = express();
 const bodyParser = require('body-parser');
-app.use(bodyParser.json());
+app.use(bodyParser.json({ limit: '5mb' }));
+app.use(bodyParser.urlencoded({ limit: '5mb', extended: true }));
 const cors = require('cors');
 app.use(cors());
 const multer = require('multer');
@@ -31,11 +32,11 @@ mongoose.connect('mongodb+srv://Freddie:cryptids@cryptids.bekuf.mongodb.net/myFi
     });
 
 //get schemas from other files
-const Pin = require('./databases/pin.js');
-const Account = require('./databases/account.js');
-const Encounter = require('./databases/encounter.js');
-const Comment = require('./databases/comment.js');
-const Image = require('./databases/image.js');
+const Pin = require('./models/pin.js');
+const Account = require('./models/account.js');
+const Encounter = require('./models/encounter.js');
+const Comment = require('./models/comment.js');
+const Image = require('./models/image.js');
 
 //the users account is stored here. storing it like this allows us to keep this data saved even if the user reloads their page
 var userAccount = new Account({
@@ -51,7 +52,7 @@ var userAccount = new Account({
 async function PostPin(objectData) {
     var image = new Image({
         _id: new mongoose.Types.ObjectId,
-        data: "hahaha"
+        data: objectData.images
     });
 
     image.save().then(result => {
@@ -87,14 +88,25 @@ async function PostPin(objectData) {
 //return a 
 app.get('/pins', (req, res) => {
     if (req.query.keyword) {
-        Pin.findOne({ title: req.query.keyword }, (err, pinResult) => {
-            if (pinResult) {
-                res.send(pinResult);
-            } else {
-                res.send("Error: Pin Not Found");
-            }
+        if (req.query.type == "title") {
+            Pin.findOne({ title: req.query.keyword }, (err, pinResult) => {
+                if (pinResult) {
+                    res.send(pinResult);
+                } else {
+                    res.send("NULL");
+                }
 
-        })
+            })
+        } else if (req.query.type == "cryptid") {
+            Pin.findOne({ cryptid: req.query.keyword }, (err, pinResult) => {
+                if (pinResult) {
+                    res.send(pinResult);
+                } else {
+                    res.send("NULL");
+                }
+
+            })
+        }
     } else {
         Pin.find({}, (err, pinResult) => {
             if (pinResult) {
@@ -166,6 +178,7 @@ app.post('/account', (req, res) => {
 
 //gets an ecnounter based on its ID
 app.get('/encounter', (req, res) => {
+    console.log(req.query.keyword);
     if (req.query.keyword) {
         Encounter.findOne({ _id: req.query.keyword }, (err, encounterResult) => {
             res.send(encounterResult);
