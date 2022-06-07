@@ -167,3 +167,99 @@ html, body {
   padding-top: 5%;
   justify-content: flex-end;
 }
+
+/* NOTE: Login page CSS */
+
+#loginPageBody {
+  background-color: lightGrey;
+  padding-top: 200px;
+}
+
+#loginLinkButton {
+  margin-top: 5px;
+  margin-left: 80px;
+  padding-left: 50px;
+  padding-right: 50px;
+}
+
+.containerContainer {
+  display: flex;
+  flex-direction: row;
+}
+
+/* login inputs on login page */
+.loginContainer {
+  display: flex;
+  flex-direction: column;
+
+  /* placement on page */
+  margin-left: 21%;
+  /*margin-right: 36%;*/
+
+  /* arrangement in Contatiner */
+  padding-left: 50px;
+  padding-right: 50px;
+  padding-top: 25px;
+  padding-bottom: 100px;
+
+  /* page colour */
+  background-color: white;
+  border: 3px solid black;
+}
+
+
+/* The CSS for the two buttons at the bottom of the login screen */
+#backButton {
+  padding-left: 100px;
+  padding-right: 100px;
+}
+
+#loginSubmit {
+  margin-top: 25px;
+  margin-left: 100px;
+  margin-right: 100px;
+}
+
+#loginBackButton {
+  padding-left: 60px;
+  padding-right: 56px;
+}
+
+/* login inputs on login page */
+.registerContainer {
+  display: flex;
+  flex-direction: column;
+
+  /* placement on page */
+  /*margin-left: 34%;
+  margin-right: 36%;*/
+
+  /* arrangement in Contatiner */
+  padding-left: 50px;
+  padding-right: 50px;
+  padding-top: 25px;
+  padding-bottom: 100px;
+
+  /* page colour */
+  background-color: white;
+  border: 3px solid black;
+  border-left: 0px;
+}
+
+
+/* The CSS for the two buttons at the bottom of the login screen */
+#backButton {
+  padding-left: 100px;
+  padding-right: 100px;
+}
+
+#registerSubmit {
+  margin-top: 25px;
+  margin-left: 100px;
+  margin-right: 100px;
+}
+
+#registerBackButton {
+  padding-left: 60px;
+  padding-right: 56px;
+}
