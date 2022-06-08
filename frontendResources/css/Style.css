@@ -109,8 +109,10 @@ html, body {
 
 /* NOTE: Profile Page*/
 
-#maplink {
-  color: black;
+#profileToMapLink {
+  margin-top: 10px;
+  margin-left: 5px;
+  margin-right: 3px;
 }
 
 .centerpiece {
@@ -126,7 +128,17 @@ html, body {
   background-color: #43464B;
 }
 
+#profilePicDisplay {
+  height: 80px;
+  width:90px;
+}
+
 .bannerText {
+  color: black;
+  margin-left: 15px;
+}
+
+#profileBio {
   color: black;
 }
 
