@@ -13,11 +13,6 @@ var OpenStreetMap_Mapnik = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{
 var Layer = OpenStreetMap_Mapnik
 Layer.addTo(map);
 
-//Pin display elements
-var desc = document.getElementById('pinInfo');
-var time = document.getElementById('pinTime');
-var loc = document.getElementById('pinLocation');
-
 //Pin addition elements
 var newPin = document.getElementById('newPin');
 var pinName = document.getElementById('pinName');
@@ -28,14 +23,12 @@ var pinLat = document.getElementById('Latitude');
 var pinTime = document.getElementById('Time');
 var pinImages = document.getElementById('imageUpload');
 
-pinName.value = 'evil road';
-pinCryptid.value = 'road';
-descriptionMap.value = 'theres no crossing?';
-pinTime.value = '23:30 25/03/2022';
-
 //New Pin indicator
 var pinIndicator;
 var creatingPin = false;
+
+//Dynamic Array of all pins on the map
+var pinList = [];
 
 //display Latitude and Longitude on map when clicked
 map.on('click', function (e) {
@@ -55,6 +48,7 @@ function OpenPinCreator() {
     xhttp.onload = function () {
         account = JSON.parse(this.responseText);
         if (account.username != "NULL") {
+            ClosePinDisplay();
             document.getElementById('pinCreation').style.display = "flex";
             creatingPin = true;
         }
@@ -68,10 +62,27 @@ function OpenPinCreator() {
 
 function ClosePinCreator() {
     document.getElementById('pinCreation').style.display = "none";
+    pinName.value = ""
+    pinCryptid.value = ""
+    descriptionMap.value = ""
+    pinLat.value = ""
+    pinLng.value = ""
+    pinTime.value = ""
     if (pinIndicator != undefined) {
         map.removeLayer(pinIndicator);
     }
+
     creatingPin = false;
+}
+
+function OpenPinDisplay() {
+    ClosePinDisplay();
+    document.getElementById('pinDisplay').style.display = "flex";
+}
+
+function ClosePinDisplay() {
+    document.getElementById('pinDisplay').innerHTML = '<h2> Pin Information</h2 ><hr style = "width: 60%; margin-left: 0;"><p id="pinLocation">[PH] location</p><p id="pinTime">[PH] time</p> <p id="pinInfo">[PH] description</p>';
+    document.getElementById('pinDisplay').style.display = "none";
 }
 
 function CreatePin() {
@@ -83,7 +94,6 @@ function CreatePin() {
         const reader = new FileReader();
 
         reader.onload = function () {
-            console.log(reader.result);
             var pinJSON = {
                 title: pinName.value,
                 cryptid: pinCryptid.value,
@@ -93,13 +103,12 @@ function CreatePin() {
                 images: reader.result
             };
 
-            console.log(pinJSON);
-
             const xhttp = new XMLHttpRequest();
 
             xhttp.onload = function () {
-                console.log(res.body);
+                console.log("eh?");
                 ClosePinCreator();
+                GetPins();
             }
 
             xhttp.open("POST", "http://localhost:6069/pins", true);
@@ -109,7 +118,27 @@ function CreatePin() {
 
         reader.readAsDataURL(pinImages.files[0]);
     } else {
-        console.log("Error: Could not parse image file. Pin will be uploaded without an image");
+        var pinJSON = {
+            title: pinName.value,
+            cryptid: pinCryptid.value,
+            description: descriptionMap.value,
+            coordinates: [pinLat.value, pinLng.value],
+            time: pinTime.value,
+            images: "NULL"
+        };
+
+        console.log(pinJSON);
+
+        const xhttp = new XMLHttpRequest();
+
+        xhttp.onload = function () {
+            console.log(res.body);
+            ClosePinCreator();
+        }
+
+        xhttp.open("POST", "http://localhost:6069/pins", true);
+        xhttp.setRequestHeader('Content-type', 'application/json');
+        xhttp.send(JSON.stringify(pinJSON));
     }
 }
 
@@ -118,45 +147,77 @@ function onMarkerClick(e) {
     const xhttp = new XMLHttpRequest();
 
     xhttp.onload = function () {
-        console.log(this.responseText);
         thisPin = JSON.parse(this.responseText);
         const xhttp2 = new XMLHttpRequest();
 
         xhttp2.onload = function () {
-            console.log(this.responseText);
-            thisEncounter = JSON.parse(this.responseText);
-            desc.textContent = "Description: " + thisEncounter.description;
-            time.textContent = "Time: " + thisEncounter.datetime;
-            loc.textContent = "Location: " + thisEncounter.location;
-            console.log('click confirmed');
-        }
+            ClosePinCreator();
+            OpenPinDisplay();
 
+            console.log(this.responseText);
+            var thisEncounter = JSON.parse(this.responseText);
+            var pinDisplay = document.getElementById('pinDisplay');
+
+            document.getElementById('pinInfo').textContent = "Description: " + thisEncounter.description;
+            document.getElementById('pinTime').textContent = "Time: " + thisEncounter.datetime;
+            document.getElementById('pinLocation').textContent = "Location: " + thisEncounter.location;
+
+            for (i = 0; i < thisEncounter.images.length; i++) {
+                const xhttp3 = new XMLHttpRequest();
+
+                xhttp3.onload = function () {
+                    var thisImage = JSON.parse(this.responseText);
+                    pinDisplay.innerHTML += '<img src="' + thisImage.data + '">';
+                }
+
+                xhttp3.open("GET", "http://localhost:6069/image?keyword=" + thisEncounter.images[i], true);
+                xhttp3.send();
+            }
+        }
+        console.log(thisPin.title);
         xhttp2.open("GET", "http://localhost:6069/encounter?keyword=" + thisPin.encounter, true);
         xhttp2.send();
     }
 
-    console.log(e.target.getPopup().getContent());
-
-    xhttp.open("GET", "http://localhost:6069/pins?keyword=" + e.target.getPopup().getContent(), true);
+    xhttp.open("GET", "http://localhost:6069/pins?type=title&keyword=" + e.target.getPopup().getContent(), true);
     xhttp.send();
+}
+
+function PinSearch() {
+    var searchQuery = document.getElementById("searchbar").value
+    searchQuery = searchQuery.charAt(0).toUpperCase() + searchQuery.slice(1);
+    GetPins(searchQuery);
+}
+
+function ClearMap() {
+    for (i = 0; i < pinList.length; i++) {
+        map.removeLayer(pinList[i])
+    }
 }
 
 //Functions for communicating with the backend
-function GetPinsFromDatabase() {
+function GetPins(search = "") {
     const xhttp = new XMLHttpRequest();
 
     xhttp.onload = function () {
-        var pinArr = JSON.parse(this.responseText);
-        for (i = 0; i < pinArr.length; i++) {
-            var pin = pinArr[i];
+        if (this.responseText != "NULL") {
+            ClearMap();
 
-            var marker = L.marker(pin.coordinates).bindPopup(pin.title).on('dblclick', onMarkerClick).addTo(map);
-            marker.addTo(map);
+            var pinArr = JSON.parse(this.responseText);
+            for (i = 0; i < pinArr.length; i++) {
+                var pin = pinArr[i];
+
+                pinList[pinList.length] = L.marker(pin.coordinates).bindPopup(pin.title).on('dblclick', onMarkerClick).addTo(map);
+            }
+        }
+        else {
+            ClearMap();
+            console.log("theres nothing here....");
         }
     }
 
-    xhttp.open("GET", "http://localhost:6069/pins", true);
+    xhttp.open("GET", "http://localhost:6069/pins?type=cryptid&keyword=" + search, true);
     xhttp.send();
 }
 
-GetPinsFromDatabase();
+GetPins();

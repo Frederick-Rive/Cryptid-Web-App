@@ -1,12 +1,12 @@
+//header files
 const mongoose = require("mongoose");
 const express = require("express");
 const app = express();
 const bodyParser = require('body-parser');
-app.use(bodyParser.json());
+app.use(bodyParser.json({ limit: '5mb' }));
+app.use(bodyParser.urlencoded({ limit: '5mb', extended: true }));
 const cors = require('cors');
-app.use(cors({
-    origin: '*'
-}));
+app.use(cors());
 const multer = require('multer');
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -32,12 +32,13 @@ mongoose.connect('mongodb+srv://Freddie:cryptids@cryptids.bekuf.mongodb.net/myFi
     });
 
 //get schemas from other files
-const Pin = require('./databases/pin.js');
-const Account = require('./databases/account.js');
-const Encounter = require('./databases/encounter.js');
-const Comment = require('./databases/comment.js');
-const Image = require('./databases/image.js');
+const Pin = require('./models/pin.js');
+const Account = require('./models/account.js');
+const Encounter = require('./models/encounter.js');
+const Comment = require('./models/comment.js');
+const Image = require('./models/image.js');
 
+//the users account is stored here. storing it like this allows us to keep this data saved even if the user reloads their page
 var userAccount = new Account({
     _id: new mongoose.Types.ObjectId,
     username: "NULL",
@@ -47,6 +48,7 @@ var userAccount = new Account({
     is_admin: false
 });
 
+//Creates a pin, along with an encounter and image to go with it, then saves them all to the database
 async function PostPin(objectData) {
     var image = new Image({
         _id: new mongoose.Types.ObjectId,
@@ -80,17 +82,31 @@ async function PostPin(objectData) {
     });
 }
 
-//communicate with the frontend
+//app.get: returns data from the database
+//app.post: saves data to the database
+
+//return a 
 app.get('/pins', (req, res) => {
     if (req.query.keyword) {
-        Pin.findOne({ title: req.query.keyword }, (err, pinResult) => {
-            if (pinResult) {
-                res.send(pinResult);
-            } else {
-                res.send("Error: Pin Not Found");
-            }
+        if (req.query.type == "title") {
+            Pin.findOne({ title: req.query.keyword }, (err, pinResult) => {
+                if (pinResult) {
+                    res.send(pinResult);
+                } else {
+                    res.send("NULL");
+                }
 
-        })
+            })
+        } else if (req.query.type == "cryptid") {
+            Pin.findOne({ cryptid: req.query.keyword }, (err, pinResult) => {
+                if (pinResult) {
+                    res.send(pinResult);
+                } else {
+                    res.send("NULL");
+                }
+
+            })
+        }
     } else {
         Pin.find({}, (err, pinResult) => {
             if (pinResult) {
@@ -103,11 +119,13 @@ app.get('/pins', (req, res) => {
     }
 });
 
+//Calls the PostPin function to save a pin to the database
 app.post('/pins', (req, res) => {
     console.log(req.body);
     PostPin(req.body);
-})
+});
 
+//Returns an account with a supplied username.
 app.get('/login', (req, res) => {
     if (req.query.keyword) {
         Account.findOne({ username: req.query.keyword }, (err, accountResult) => {
@@ -121,6 +139,7 @@ app.get('/login', (req, res) => {
     }
 });
 
+//sets users account, saves account to the database
 app.post('/register', (req, res) => {
     var newAccount = new Account({
         _id: new mongoose.Types.ObjectId,
@@ -134,6 +153,7 @@ app.post('/register', (req, res) => {
     res.send("Account " + newAccount.username + " has been saved")
 });
 
+//gets an account based on its ID
 app.get('/account', (req, res) => {
     if (req.query.keyword) {
         Account.findOne({ _id: req.query.keyword }, (err, accountResult) => {
@@ -144,6 +164,7 @@ app.get('/account', (req, res) => {
     }
 });
 
+//sets the users account.
 app.post('/account', (req, res) => {
     userAccount = new Account({
         _id: req.body._id,
@@ -155,7 +176,9 @@ app.post('/account', (req, res) => {
     });
 });
 
+//gets an ecnounter based on its ID
 app.get('/encounter', (req, res) => {
+    console.log(req.query.keyword);
     if (req.query.keyword) {
         Encounter.findOne({ _id: req.query.keyword }, (err, encounterResult) => {
             res.send(encounterResult);
@@ -163,6 +186,7 @@ app.get('/encounter', (req, res) => {
     }
 });
 
+//saves a new encounter
 app.post('/encounter', (req, res) => {
     var newEncounter = new Encounter({
         _id: mongoose.Types.ObjectId,
@@ -181,6 +205,7 @@ app.post('/encounter', (req, res) => {
     });
 });
 
+//gets a comment based on its ID
 app.get('/comment', (req, res) => {
     if (req.query.keyword) {
         Comment.findOne({ _id: req.query.keyword }, (err, commentResult) => {
@@ -189,6 +214,7 @@ app.get('/comment', (req, res) => {
     }
 });
 
+//gets an image based on its ID
 app.get('/image', (req, res) => {
     if (req.query.keyword) {
         Image.findOne({ _id: req.query.keyword }, (err, imageResult) => {
@@ -209,6 +235,7 @@ app.get('/image', (req, res) => {
     }
 });
 
+//saves a new image
 app.post('/image', (req, res) => {
     newImage = new Image({
         _id: new mongoose.Types.ObjectId,
@@ -219,4 +246,5 @@ app.post('/image', (req, res) => {
     });
 });
 
+//fetches any commands sent on port 6069
 app.listen(6069);

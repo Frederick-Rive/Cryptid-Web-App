@@ -36,9 +36,9 @@
           <hr style="width:90%;text-align:left;margin-left:0">
 
           <!--search bar HTML-->
-          <div id="searchbar">
-              <input type="text" name="searchbar" value="search">
-              <button type="button" name="searchConfirm">Go</button>
+          <div id="search">
+              <input type="text" id="searchbar" value="search">
+              <button type="button" id="searchConfirm" onclick="PinSearch()">Go</button>
           </div>
 
           <hr style="width:90%;text-align:left;margin-left:0;">
@@ -46,13 +46,13 @@
           <a class="linkButton" href="./profile.html">PH-Profile link</a>
           <a class="linkButton" href="./settings.html">PH-Settings link</a>
 
-
-          <h2>Pin Information</h2>
-          <hr style="width: 90%; margin-left: 0;">
-          <!-- The currently showing descripton on the map page-->
-          <p id="pinLocation">[PH] location</p>
-          <p id="pinTime">[PH] time</p>
-          <p id="pinInfo">[PH] description</p>
+          <div id="pinDisplay">
+            <h2>Pin Information</h2>
+            <hr style="width: 60%; margin-left: 0;">
+            <p id="pinLocation">[PH] location</p>
+            <p id="pinTime">[PH] time</p>
+            <p id="pinInfo">[PH] description</p>
+          </div>
 
           <hr style="width:90%; margin-left:0;">
 
