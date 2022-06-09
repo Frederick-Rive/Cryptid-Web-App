@@ -51,23 +51,34 @@ html, body {
   height: 100%;
   width: 25%;
   float: left;
-  background-color: lightGrey;
+  background-color: darkGrey;
+  overflow-y: scroll;
 }
 
-/* Test Login in the side bar */
-#PH-testLogin {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 40px;
+/* Login in the side bar */
+
+#loginLinkButton {
+  margin-top: 5px;
+  margin-left: 80px;
+  padding-left: 50px;
+  padding-right: 50px;
 }
 
-#PH-loginButtons {
-  display: flex;
-  flex-direction: row;
+
+#searchbar {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  margin-left: 10px;
+  /* change input width on html inline CSS */
 }
 
-#search {
-  margin-top: 40px;
+#mapToProfileLink {
+  margin-left: 85px;
+  margin-right: 25px;
+}
+
+.pinInfoText {
+  margin-left: 30px;
 }
 
 /* Pin Creation */
@@ -75,6 +86,13 @@ html, body {
   display: none;
   flex-direction: column;
   z-index: 9;
+  margin-top: 20px;
+  margin-left: 15px;
+  margin-right: 10px;
+}
+
+#close {
+  margin-left: 150px;
 }
 
 /*Pin Display*/
@@ -86,13 +104,15 @@ html, body {
 
 #openButton {
   width: 25%;
-  margin-left: 10px;
+  margin-left: 125px;
 }
 
 /* NOTE: Profile Page*/
 
-#maplink {
-  color: black;
+#profileToMapLink {
+  margin-top: 10px;
+  margin-left: 5px;
+  margin-right: 3px;
 }
 
 .centerpiece {
@@ -108,7 +128,17 @@ html, body {
   background-color: #43464B;
 }
 
+#profilePicDisplay {
+  height: 80px;
+  width:90px;
+}
+
 .bannerText {
+  color: black;
+  margin-left: 15px;
+}
+
+#profileBio {
   color: black;
 }
 
@@ -182,13 +212,6 @@ html, body {
   padding-top: 200px;
 }
 
-#loginLinkButton {
-  margin-top: 5px;
-  margin-left: 80px;
-  padding-left: 50px;
-  padding-right: 50px;
-}
-
 .containerContainer {
   display: flex;
   flex-direction: row;
@@ -232,7 +255,7 @@ html, body {
   padding-right: 56px;
 }
 
-/* login inputs on login page */
+/* register inputs on login page */
 .registerContainer {
   display: flex;
   flex-direction: column;
@@ -254,7 +277,7 @@ html, body {
 }
 
 
-/* The CSS for the two buttons at the bottom of the login screen */
+/* The CSS for the two buttons at the bottom of the register screen */
 #backButton {
   padding-left: 100px;
   padding-right: 100px;

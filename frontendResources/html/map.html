@@ -33,28 +33,29 @@
 
           <a href="./Login.html"><button type="button" id="loginLinkButton">Login/Register</button></a>
 
-          <hr style="width:90%;text-align:left;margin-left:0">
+          <hr style="width:99%;text-align:left; margin-left:0;">
 
           <!--search bar HTML-->
-          <div id="search">
-              <input type="text" id="searchbar" value="search">
-              <button type="button" id="searchConfirm" onclick="PinSearch()">Go</button>
+          <div id="searchbar">
+              <input type="text" name="searchbar" style="width:300px" placeholder="search">
+              <button type="button" name="searchConfirm">Go</button>
           </div>
 
-          <hr style="width:90%;text-align:left;margin-left:0;">
+          <hr style="width:99%;text-align:left; margin-left:0;">
 
-          <a class="linkButton" href="./profile.html">PH-Profile link</a>
-          <a class="linkButton" href="./settings.html">PH-Settings link</a>
+          <a id="mapToProfileLink" href="./profile.html"><button type="button" name="button">Profile link</button></a>
+          <a id="mapToSettingLink" href="./settings.html"><button type="button">Settings link</button></a>
 
-          <div id="pinDisplay">
-            <h2>Pin Information</h2>
-            <hr style="width: 60%; margin-left: 0;">
-            <p id="pinLocation">[PH] location</p>
-            <p id="pinTime">[PH] time</p>
-            <p id="pinInfo">[PH] description</p>
-          </div>
+          <hr style="width:99%;text-align:left; margin-left:0;">
 
-          <hr style="width:90%; margin-left:0;">
+          <h2 style="margin-left:95px;">Pin Information</h2>
+          <hr style="width:99%;text-align:left; margin-left:0;">
+          <!-- The currently showing descripton on the map page-->
+          <p class="pinInfoText" id="pinLocation">[PH] location</p>
+          <p class="pinInfoText" id="pinTime">[PH] time</p>
+          <p class="pinInfoText" id="pinInfo">[PH] description</p>
+
+          <hr style="width:99%;text-align:left; margin-left:0;">
 
           <button id="openButton" type="button" name="open" onclick="OpenPinCreator()">New Pin</button>
           <!-- Pin creation form on Map page -->
