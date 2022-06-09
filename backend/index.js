@@ -70,6 +70,14 @@ async function PostPin(objectData) {
             is_reported: false
         });
         newEncounter.save().then(result => {
+            Account.findOneAndUpdate({
+                _id: userAccount._id
+            }, {
+                $push: {
+                    encounterlog: newEncounter._id
+                },
+            })
+
             var newPin = new Pin({
                 _id: new mongoose.Types.ObjectId,
                 coordinates: objectData.coordinates,
@@ -171,7 +179,7 @@ app.post('/account', (req, res) => {
         username: req.body.username,
         password: req.body.password,
         description: req.body.description,
-        encounterlog: [mongoose.Types.ObjectId("6283134f14341abdb5db63c2")],
+        encounterlog: req.body.encounterlog,
         is_admin: req.body.is_admin
     });
 });
