@@ -1,9 +1,3 @@
-//getting buttons
-var loginButton = document.getElementsByName('loginButton');
-var registerButton = document.getElementsByName('registerButton');
-var searchConfirm = document.getElementsByName('searchConfirm');
-var profile = document.getElementsByName('PH-ProfileLink');
-
 //getting inputs
 var usernameInput = document.getElementById('uName');
 var passwordInput = document.getElementById('pWord');
@@ -13,7 +7,6 @@ var searchInput = document.getElementsByName('searchbar');
 function toProfile() {
   window.location = "./profile.html"
 }
-
 
 function convertImg(input) {
     var url = input.value;
@@ -34,13 +27,14 @@ function convertImg(input) {
 }
 
 function logIn() {
+    var usernameInput = document.getElementById('loginUsername');
+    var passwordInput = document.getElementById('loginPassword');
     var username = usernameInput.value;
     var password = passwordInput.value;
 
     const xhttp = new XMLHttpRequest();
 
     xhttp.onload = function () {
-        console.log(this.responseText);
         if (!this.responseText) {
             console.log("Unable to find an account with that username");
             return;
@@ -52,6 +46,7 @@ function logIn() {
             const xhttp2 = new XMLHttpRequest();
             xhttp2.open("POST", "http://localhost:6069/account", true);
             xhttp2.setRequestHeader('Content-type', 'application/json');
+            console.log(thisAccount);
             xhttp2.send(JSON.stringify(thisAccount));
 
             toProfile();
@@ -65,6 +60,8 @@ function logIn() {
 }
 
 function register() {
+    var usernameInput = document.getElementById('registerUsername');
+    var passwordInput = document.getElementById('registerPassword');
     var uN = usernameInput.value;
     var pW = passwordInput.value;
 

@@ -19,12 +19,13 @@ function GetUserAccount() {
 function UpdateProfilePage() {
     name.innerHTML = userAccount.username;
 
+    console.log(userAccount);
+
     activitylog.innerHTML = "<h2>PH-Activity Feed</h2>";
     for (i = 0; i < userAccount.encounterlog.length; i++) {
         const xhttp = new XMLHttpRequest();
         xhttp.onload = function () {
             thisActivity = JSON.parse(this.responseText);
-            console.log(thisActivity);
             activitylog.innerHTML += "<div class='activityFeedItem'> <h3>" + thisActivity.title + "</h3> <p>" + thisActivity.description + "</p><p>" + thisActivity.location + "<br>" + thisActivity.datetime + "</p>";
             activitylog.innerHTML += "<div class='comments'><h2> comments:</h2><hr style='width:75%; margin:0;border-color:green;'>";
             for (o = 0; o < thisActivity.comments.length; o++) {
