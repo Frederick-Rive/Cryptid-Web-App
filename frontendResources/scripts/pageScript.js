@@ -5,7 +5,19 @@ var searchInput = document.getElementsByName('searchbar');
 
 //event functions
 function toProfile() {
-  window.location = "./profile.html"
+    window.location = "./profile.html";
+}
+
+function toSettings() {
+    window.location = "./settings.html";
+}
+
+function toMap() {
+    window.location = "./map.html";
+}
+
+function toAccount() {
+    window.location = "./Login.html";
 }
 
 function convertImg(input) {
@@ -35,27 +47,24 @@ function logIn() {
     const xhttp = new XMLHttpRequest();
 
     xhttp.onload = function () {
-        if (!this.responseText) {
-            console.log("Unable to find an account with that username");
+        if (this.responseText[0] == 'N') {
+            console.log(this.responseText);
             return;
         }
         thisAccount = JSON.parse(this.responseText);
-        if (thisAccount.password == password) {
-            console.log("Success! you have (hypothetically) logged in!");
+        console.log("Success! you have (hypothetically) logged in!");
 
-            const xhttp2 = new XMLHttpRequest();
-            xhttp2.open("POST", "http://localhost:6069/account", true);
-            xhttp2.setRequestHeader('Content-type', 'application/json');
-            console.log(thisAccount);
-            xhttp2.send(JSON.stringify(thisAccount));
+        const xhttp2 = new XMLHttpRequest();
+        xhttp2.open("POST", "http://localhost:6069/account", true);
+        xhttp2.setRequestHeader('Content-type', 'application/json');
+        console.log(thisAccount);
+        xhttp2.send(JSON.stringify(thisAccount));
 
-            toProfile();
-            return;
-        }
-        console.log("Your password was incorrect, sorry!");
+        toProfile();
+        return;
     }
 
-    xhttp.open("GET", "http://localhost:6069/login?keyword=" + username, true);
+    xhttp.open("GET", "http://localhost:6069/login?username=" + username + "&password=" + password, true);
     xhttp.send();
 }
 
@@ -68,7 +77,7 @@ function register() {
     const xhttp2 = new XMLHttpRequest();
 
     xhttp2.onload = function () {
-        if (this.responseText) {
+        if (this.responseText != "N-USERNAME") {
             console.log("That username has already been taken");
             return;
         }
@@ -90,6 +99,6 @@ function register() {
         xhttp.send(JSON.stringify(account));
     }
 
-    xhttp2.open("GET", "http://localhost:6069/login?keyword=" + username, true);
+    xhttp2.open("GET", "http://localhost:6069/login?username=" + uN + "&password=" + pW, true);
     xhttp2.send();
 }

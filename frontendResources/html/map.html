@@ -31,30 +31,31 @@
       <!--creating divs for the Map and its Sidebar-->
       <div class="mapSidebar">
 
-          <a href="./Login.html"><button type="button" id="loginLinkButton">Login/Register</button></a>
+          <button type="button" id="loginLinkButton" onclick="toAccount()">Login/Register</button>
 
           <hr style="width:99%;text-align:left; margin-left:0;">
 
           <!--search bar HTML-->
-          <div id="searchbar">
-              <input type="text" name="searchbar" style="width:300px" placeholder="search">
-              <button type="button" name="searchConfirm">Go</button>
+          <div id="search">
+              <input type="text" id="searchbar" placeholder="search">
+              <button type="button" id="searchConfirm" onclick="PinSearch()">Go</button>
           </div>
 
           <hr style="width:99%;text-align:left; margin-left:0;">
 
-          <a id="mapToProfileLink" href="./profile.html"><button type="button" name="button">Profile link</button></a>
-          <a id="mapToSettingLink" href="./settings.html"><button type="button">Settings link</button></a>
+          <button type="button" name="button" onclick="toProfile()">Profile link</button>
+          <button type="button" name="button" onclick="toSettings()">Settings link</button>
 
           <hr style="width:99%;text-align:left; margin-left:0;">
 
-          <h2 style="margin-left:95px;">Pin Information</h2>
-          <hr style="width:99%;text-align:left; margin-left:0;">
-          <!-- The currently showing descripton on the map page-->
-          <p class="pinInfoText" id="pinLocation">[PH] location</p>
-          <p class="pinInfoText" id="pinTime">[PH] time</p>
-          <p class="pinInfoText" id="pinInfo">[PH] description</p>
-
+          <div id="pinDisplay">
+              <h2 style="margin-left:95px;">Pin Information</h2>
+              <hr style="width:99%;text-align:left; margin-left:0;">
+              <!-- The currently showing descripton on the map page-->
+              <p class="pinInfoText" id="pinLocation">[PH] location</p>
+              <p class="pinInfoText" id="pinTime">[PH] time</p>
+              <p class="pinInfoText" id="pinInfo">[PH] description</p>
+          </div>
           <hr style="width:99%;text-align:left; margin-left:0;">
 
           <button id="openButton" type="button" name="open" onclick="OpenPinCreator()">New Pin</button>
@@ -73,19 +74,19 @@
           </form>
       </div>
 
-      <!--div that contians the map-->
-      <div id="Mapid"></div>
+    <!--div that contians the map-->
+    <div id="Mapid"></div>
 
-      <!-- NOTE: Linking javascript for use -->
-      <!-- Linking pageScript.js -->
-      <script src="../scripts/pageScript.js" charset="utf-8"></script>
+    <!-- NOTE: Linking javascript for use -->
+    <!-- Linking pageScript.js -->
+    <script src="../scripts/pageScript.js" charset="utf-8"></script>
 
-      <!--linking the Script js File for use with the div containing the map-->
-      <script src="../scripts/MapScript.js" charset="utf-8"></script>
+    <!--linking the Script js File for use with the div containing the map-->
+    <script src="../scripts/MapScript.js" charset="utf-8"></script>
 
-      <!--linking leaflet providers-->
-      <script src="../scripts/leaflet-providers.js"></script>
+    <!--linking leaflet providers-->
+    <script src="../scripts/leaflet-providers.js"></script>
 
-  </body>
+</body>
 
 </html>

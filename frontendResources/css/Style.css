@@ -65,7 +65,7 @@ html, body {
 }
 
 
-#searchbar {
+#search {
   margin-top: 20px;
   margin-bottom: 20px;
   margin-left: 10px;
@@ -237,22 +237,17 @@ html, body {
   border: 3px solid black;
 }
 
-
 /* The CSS for the two buttons at the bottom of the login screen */
-#backButton {
-  padding-left: 100px;
-  padding-right: 100px;
+.backButton {
+    padding-left: 0px;
+    padding-right: 0px;
+    margin-left: 100px;
+    margin-right: 100px;
 }
 
-#loginSubmit {
-  margin-top: 25px;
-  margin-left: 100px;
-  margin-right: 100px;
-}
-
-#loginBackButton {
-  padding-left: 60px;
-  padding-right: 56px;
+#loginButton {
+    margin-top: 25px;
+    padding: 0px 200px 0px 200px;
 }
 
 /* register inputs on login page */
@@ -276,20 +271,7 @@ html, body {
   border-left: 0px;
 }
 
-
-/* The CSS for the two buttons at the bottom of the register screen */
-#backButton {
-  padding-left: 100px;
-  padding-right: 100px;
-}
-
-#registerSubmit {
+#registerButton {
   margin-top: 25px;
-  margin-left: 100px;
-  margin-right: 100px;
-}
-
-#registerBackButton {
-  padding-left: 60px;
-  padding-right: 56px;
+  padding: 0px 200px 0px 200px;
 }

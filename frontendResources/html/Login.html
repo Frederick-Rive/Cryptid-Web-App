@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
@@ -13,14 +13,12 @@
     <label for="Username">Username:</label>
       <input type="text" id="loginUsername" placeholder="Username">
       <label for="Password">Password:</label>
-      <input type="text" id="loginPassword" placeholder="Password">
+      <input type="password" id="loginPassword" placeholder="Password">
 
 
        <button type="button" id="loginButton" onclick="logIn()">Submit</button>
 
-       <a id="backButton" href="../html/map.html">
-         <button type="button" id="loginBackButton">Back</button>
-       </a>
+        <button type="button" class="backButton" onclick="toMap()">Back</button>
 
   </div>
 
@@ -30,14 +28,12 @@
     <label for="Username">Username:</label>
       <input type="text" id="registerUsername" placeholder="Username">
       <label for="Password">Password:</label>
-      <input type="text" id="registerPassword" placeholder="Password">
+      <input type="password" id="registerPassword" placeholder="Password">
 
        <button type="button" id="registerButton" onclick="register()">Submit</button>
        
-       <a id="backButton" href="../html/map.html">
-         <button type="button" id="registerBackButton">Back</button>
-       </a>
-
+       <button type="button" class="backButton" onclick="toMap()">Back</button>
+ 
   </div>
 </div>
 
