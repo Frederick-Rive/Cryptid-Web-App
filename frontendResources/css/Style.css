@@ -11,20 +11,6 @@ html, body {
 }
 
 /*  General CSS  */
- /* Link CSS */
-
-.linkButton {
-  font: bold 11px Arial;
-  text-decoration: none;
-  background-color: #EEEEEE;
-  color: #333333;
-  padding: 2px 6px 2px 6px;
-  border-top: 1px solid #CCCCCC;
-  border-right: 1px solid #333333;
-  border-bottom: 1px solid #333333;
-  border-left: 1px solid #CCCCCC;
-}
-
 /* responsive website Css */
 
 .resp-p {
@@ -208,7 +194,7 @@ html, body {
 /* NOTE: Login page CSS */
 
 #loginPageBody {
-  background-color: lightGrey;
+  background-color: #43464B;
   padding-top: 200px;
 }
 
@@ -233,7 +219,8 @@ html, body {
   padding-bottom: 100px;
 
   /* page colour */
-  background-color: white;
+  background-color: black;
+  color: green;
   border: 3px solid black;
 }
 
@@ -271,11 +258,11 @@ html, body {
   padding-bottom: 100px;
 
   /* page colour */
-  background-color: white;
+  background-color: black;
+  color: green;
   border: 3px solid black;
   border-left: 0px;
 }
-
 
 /* The CSS for the two buttons at the bottom of the register screen */
 #backButton {
