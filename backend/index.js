@@ -92,6 +92,30 @@ async function PostPin(objectData) {
     });
 }
 
+async function PatchAccount(input) {
+    const updates = JSON.parse(input);
+
+    if (updates.profilepic) {
+        var newImage = new Image({
+            _id: new mongoose.Types.ObjectId,
+            data: updates.profilePic
+        });
+        newImage.save().then(result => {
+            var accountUpdate = {
+                profilepic: result._id,
+                bio: updates.bio
+            }
+            Account.updateOne({ _id: userAccount._id }, accountUpdate)
+        })
+    }
+    else {
+        var accountUpdate = {
+            bio: updates.bio
+        }
+        Account.updateOne({ _id: userAccount._id }, accountUpdate)
+    }
+}
+
 //app.get: returns data from the database
 //app.post: saves data to the database
 
@@ -176,6 +200,11 @@ app.get('/account', (req, res) => {
     } else {
         res.send(userAccount);
     }
+});
+
+app.patch('/account', (req, res) => {
+    PatchAccount(req.body);
+    res.send("success");
 });
 
 //sets the users account.

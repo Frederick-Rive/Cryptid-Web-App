@@ -2,6 +2,8 @@ userAccount = {}
 
 const name = document.getElementById("username");
 const activitylog = document.getElementById("activityFeed");
+const profilePic = document.getElementById("profilePic");
+const bio = document.getElementById("profileBio");
 
 function GetUserAccount() {
     const xhttp = new XMLHttpRequest();
@@ -18,6 +20,15 @@ function GetUserAccount() {
 
 function UpdateProfilePage() {
     name.innerHTML = userAccount.username;
+
+    if (userAccount.profilepic) {
+        profilePic.src = "";
+        profilePic.url = userAccount.profilepic;
+    }
+
+    if (userAccount.bio) {
+        bio.textContent = userAccount.bio;
+    }
 
     activitylog.innerHTML = "<h2>PH-Activity Feed</h2>";
 

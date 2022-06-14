@@ -60,7 +60,7 @@ function logIn() {
         console.log(thisAccount);
         xhttp2.send(JSON.stringify(thisAccount));
 
-        toProfile();
+        toSettings();
         return;
     }
 
@@ -86,7 +86,7 @@ function register() {
         var account = {
             username: uN,
             password: pW,
-            description: "new one",
+            bio: "",
             is_admin: false
         };
 
@@ -101,4 +101,44 @@ function register() {
 
     xhttp2.open("GET", "http://localhost:6069/login?username=" + uN + "&password=" + pW, true);
     xhttp2.send();
+}
+
+function UpdateProfile() {
+    const imageInput = document.getElementById('profilePicUpload');
+    const bioInput = document.getElementById('bio');
+
+    if (imageInput.files[0]) {
+        const reader = new FileReader();
+
+        reader.onload = function () {
+            const xhttp = new XMLHttpRequest();
+
+            xhttp.onload = function () {
+                console.log("by the end of the week i want real popups please");
+            }
+
+            const updates = {
+                bio: bioInput.value,
+                profilepic: reader.result
+            };
+
+            xhttp.open("PATCH", "http://localhost:6069/account");
+            xhttp.send(JSON.stringify(updates));
+        }
+        reader.readAsDataURL(imageInput.files[0]);
+    }
+    else {
+        const xhttp = new XMLHttpRequest();
+
+        xhttp.onload = function () {
+            console.log("by the end of the week i want real popups please");
+        }
+
+        const updates = {
+            bio: bioInput.value,
+        };
+
+        xhttp.open("PATCH", "http://localhost:6069/account");
+        xhttp.send(JSON.stringify(updates));
+    }
 }

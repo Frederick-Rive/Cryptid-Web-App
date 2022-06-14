@@ -128,7 +128,7 @@ html, body {
   background-color: #43464B;
 }
 
-#profilePicDisplay {
+#profilePic {
   height: 80px;
   width:90px;
 }
@@ -239,15 +239,16 @@ html, body {
 
 /* The CSS for the two buttons at the bottom of the login screen */
 .backButton {
-    padding-left: 0px;
-    padding-right: 0px;
-    margin-left: 100px;
-    margin-right: 100px;
+    padding: 0px;
+    width: 150px;
+    margin-left: 150px;
+    margin-right: 150px;
 }
 
 #loginButton {
-    margin-top: 25px;
-    padding: 0px 200px 0px 200px;
+    margin: 25px 100px 0px 100px;
+    padding: 0px;
+    width: 250px;
 }
 
 /* register inputs on login page */
@@ -272,6 +273,7 @@ html, body {
 }
 
 #registerButton {
-  margin-top: 25px;
-  padding: 0px 200px 0px 200px;
+  margin: 25px 100px 0px 100px;
+  padding: 0px;
+  width: 250px;
 }
