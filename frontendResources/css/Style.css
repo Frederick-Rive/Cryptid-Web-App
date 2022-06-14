@@ -245,6 +245,9 @@ html, body {
     width: 150px;
     margin-left: 150px;
     margin-right: 150px;
+    background-color: black;
+    color: green;
+    border-color: green;
 }
 
 #loginButton {
@@ -286,7 +289,7 @@ html, body {
   color: green;
   border-color: green;
 }
- 
+
 .username {
   background-color: black;
   color: green;
@@ -298,4 +301,3 @@ html, body {
   color: green;
   border-color: green;
 }
-
