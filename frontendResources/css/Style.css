@@ -11,20 +11,6 @@ html, body {
 }
 
 /*  General CSS  */
- /* Link CSS */
-
-.linkButton {
-  font: bold 11px Arial;
-  text-decoration: none;
-  background-color: #EEEEEE;
-  color: #333333;
-  padding: 2px 6px 2px 6px;
-  border-top: 1px solid #CCCCCC;
-  border-right: 1px solid #333333;
-  border-bottom: 1px solid #333333;
-  border-left: 1px solid #CCCCCC;
-}
-
 /* responsive website Css */
 
 .resp-p {
@@ -115,17 +101,28 @@ html, body {
   margin-right: 3px;
 }
 
+.background {
+  background-color: black;
+}
+
 .centerpiece {
   height: 100%;
   margin-left: 25%;
   margin-right: 25%;
+
+  border-left: 1px;
+  border-right: 1px;
+  border-style: solid;
+  border-color: green;
+
   background-color: black;
   padding-bottom: 10%;
   color: green;
 }
 
 .topBanner {
-  background-color: #43464B;
+  background-color: /*#43464B*/black;
+  color: green;
 }
 
 #profilePic {
@@ -134,7 +131,7 @@ html, body {
 }
 
 .bannerText {
-  color: black;
+  color: green;
   margin-left: 15px;
 }
 
@@ -208,7 +205,7 @@ html, body {
 /* NOTE: Login page CSS */
 
 #loginPageBody {
-  background-color: lightGrey;
+  background-color: black;
   padding-top: 200px;
 }
 
@@ -226,6 +223,9 @@ html, body {
   margin-left: 21%;
   /*margin-right: 36%;*/
 
+
+
+
   /* arrangement in Contatiner */
   padding-left: 50px;
   padding-right: 50px;
@@ -233,8 +233,10 @@ html, body {
   padding-bottom: 100px;
 
   /* page colour */
-  background-color: white;
-  border: 3px solid black;
+  background-color: black;
+  color: green;
+  border: 3px solid green;
+  border-right: 0px;
 }
 
 /* The CSS for the two buttons at the bottom of the login screen */
@@ -249,7 +251,11 @@ html, body {
     margin: 25px 100px 0px 100px;
     padding: 0px;
     width: 250px;
+  background-color: black;
+  color: green;
+  border-color: green;
 }
+
 
 /* register inputs on login page */
 .registerContainer {
@@ -267,13 +273,29 @@ html, body {
   padding-bottom: 100px;
 
   /* page colour */
-  background-color: white;
-  border: 3px solid black;
-  border-left: 0px;
+  background-color: black;
+  color: green;
+  border: 3px solid green;
 }
 
 #registerButton {
   margin: 25px 100px 0px 100px;
   padding: 0px;
   width: 250px;
+  background-color: black;
+  color: green;
+  border-color: green;
 }
+ 
+.username {
+  background-color: black;
+  color: green;
+  border-color: green;
+}
+
+.password {
+  background-color: black;
+  color: green;
+  border-color: green;
+}
+
