@@ -136,7 +136,8 @@ html, body {
 }
 
 #profileBio {
-  color: black;
+  color:green;
+  margin-left:10px;
 }
 
 #banner-center_seperator {
@@ -206,7 +207,6 @@ html, body {
 
 #loginPageBody {
   background-color: black;
-  padding-top: 200px;
 }
 
 .containerContainer {
