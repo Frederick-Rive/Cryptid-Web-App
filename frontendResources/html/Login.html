@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
@@ -13,16 +13,15 @@
   <div class="loginContainer">
     <h3>Login:</h3>
     <label for="Username">Username:</label>
-      <input type="text" class="username" id="loginUsername">
+      <input type="text" class="username" id="loginUsername" placeholder="Username">
       <label for="Password">Password:</label>
-      <input type="text" class="password" id="loginPassword">
+      <input type="password" id="loginPassword" class="password" placeholder="Password">
+
 
 
        <button type="button" id="loginButton" onclick="logIn()">Submit</button>
 
-       <a id="backButton" href="../html/map.html">
-         <button type="button" id="loginBackButton">Back</button>
-       </a>
+        <button type="button" class="backButton" onclick="toMap()">Back</button>
 
   </div>
 
@@ -30,15 +29,13 @@
     <h3>Register:</h3>
 
     <label for="Username">Username:</label>
-      <input type="text" class="username" id="registerUsername">
+      <input type="text" class="username" id="registerUsername" placeholder="Username">
       <label for="Password">Password:</label>
-      <input type="text" class="password" id="registerPassword">
+      <input type="password" id="registerPassword" class="password" placeholder="Password">
 
        <button type="button" id="registerButton" onclick="register()">Submit</button>
 
-       <a id="backButton" href="../html/map.html">
-         <button type="button" id="registerBackButton">Back</button>
-       </a>
+       <button type="button" class="backButton" onclick="toMap()">Back</button>
 
   </div>
 </div>
