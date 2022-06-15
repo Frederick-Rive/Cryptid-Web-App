@@ -42,6 +42,23 @@ map.on('click', function (e) {
     }
 });
 
+// Post a comment to theb
+function PostComment()
+{
+  const commentInput = document.getElementById("commentCreation");
+	const pinName = document.getElementById("pinName");
+
+	const commentJSON = {
+		text: commentInput.value,
+		pin: pinName.value
+	};
+
+	const xhttp = new XMLHttpRequest();
+
+	xhttp.open("POST", "http://localhost:6069/comment");
+	xhttp.send(JSON.stringify(commentJSON));
+}
+
 // New pin creation (map)
 function OpenPinCreator() {
     const xhttp = new XMLHttpRequest();

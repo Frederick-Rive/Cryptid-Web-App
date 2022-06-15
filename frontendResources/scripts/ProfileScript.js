@@ -37,7 +37,7 @@ function UpdateProfilePage() {
         activities = JSON.parse(this.responseText);
         for (i = 0; i < activities.length; i++) {
             activitylog.innerHTML += "<div class='activityFeedItem'> <h3>" + activities[i].title + "</h3> <p>" + activities[i].description + "</p><p>" + activities[i].location + "<br>" + activities[i].datetime + "</p>";
-            activitylog.innerHTML += "<div class='comments'><h2> comments:</h2><hr style='width:75%; margin:0;border-color:green;'>";
+            activitylog.innerHTML += "<div class='comments'> <h2>Comments:</h2> <hr style='width:75%; margin:0;border-color:green;'> <input id='commmentCreation' type='text' name='createComment' placeholder='Enter comment here:''> <button type=button onClick='PostComment()";
             for (o = 0; o < activities[i].comments.length; o++) {
                 GetComment(activities[i].comments[o], activitylog);
             }
