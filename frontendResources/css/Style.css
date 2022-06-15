@@ -41,7 +41,7 @@ html, body {
   overflow-y: scroll;
 }
 
-/* Login in the side bar */
+/* Login buttom in the side bar */
 
 #loginLinkButton {
   margin-top: 5px;
@@ -160,6 +160,14 @@ html, body {
   border: 1px solid green;
   margin-left: 25px;
   margin-right: 25px;
+}
+
+#commmentCreation {
+  background-color: black;
+  color: green;
+  border-color: green;
+
+  margin-top: 20px;
 }
 
 /* NOTE: Settings Css */
