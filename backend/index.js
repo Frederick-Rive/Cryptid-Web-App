@@ -17,6 +17,8 @@ const storage = multer.diskStorage({
     }
 });
 const upload = multer({ storage: storage });
+const bcrypt = require('bcrypt');
+const salt = 10;
 
 //connect to the database
 mongoose.connect('mongodb+srv://Freddie:cryptids@cryptids.bekuf.mongodb.net/myFirstDatabase?retryWrites=true&w=majority',
@@ -90,6 +92,30 @@ async function PostPin(objectData) {
     });
 }
 
+async function PatchAccount(input) {
+    const updates = JSON.parse(input);
+
+    if (updates.profilepic) {
+        var newImage = new Image({
+            _id: new mongoose.Types.ObjectId,
+            data: updates.profilePic
+        });
+        newImage.save().then(result => {
+            var accountUpdate = {
+                profilepic: result._id,
+                bio: updates.bio
+            }
+            Account.updateOne({ _id: userAccount._id }, accountUpdate)
+        })
+    }
+    else {
+        var accountUpdate = {
+            bio: updates.bio
+        }
+        Account.updateOne({ _id: userAccount._id }, accountUpdate)
+    }
+}
+
 //app.get: returns data from the database
 //app.post: saves data to the database
 
@@ -135,24 +161,28 @@ app.post('/pins', (req, res) => {
 
 //Returns an account with a supplied username.
 app.get('/login', (req, res) => {
-    if (req.query.keyword) {
-        Account.findOne({ username: req.query.keyword }, (err, accountResult) => {
-            res.send(accountResult);
-        })
-    }
-    else {
-        Account.find({}, (err, accountResult) => {
-            res.send(accountResult);
-        })
-    }
+    Account.findOne({ username: req.query.username }, (err, accountResult) => {
+        if (accountResult) {
+            if (bcrypt.compareSync(req.query.password, accountResult.password)) {
+                res.send(accountResult);
+            }
+            else {
+                res.send("N-PASSWORD");
+            }
+        }
+        else {
+            res.send("N-USERNAME");
+        }
+    })
 });
 
 //sets users account, saves account to the database
 app.post('/register', (req, res) => {
+    var hash = bcrypt.hashSync(req.body.password, salt);
     var newAccount = new Account({
         _id: new mongoose.Types.ObjectId,
         username: req.body.username,
-        password: req.body.password,
+        password: hash,
         description: req.body.description,
         is_admin: req.body.is_admin
     });
@@ -172,6 +202,11 @@ app.get('/account', (req, res) => {
     }
 });
 
+app.patch('/account', (req, res) => {
+    PatchAccount(req.body);
+    res.send("success");
+});
+
 //sets the users account.
 app.post('/account', (req, res) => {
     userAccount = new Account({
@@ -186,11 +221,17 @@ app.post('/account', (req, res) => {
 
 //gets an ecnounter based on its ID
 app.get('/encounter', (req, res) => {
-    console.log(req.query.keyword);
     if (req.query.keyword) {
-        Encounter.findOne({ _id: req.query.keyword }, (err, encounterResult) => {
-            res.send(encounterResult);
-        })
+        if (req.query.type == "user") {
+            Encounter.find({ user: req.query.keyword }, (err, encounterResult) => {
+                res.send(encounterResult);
+            })
+        }
+        else {
+            Encounter.findOne({ _id: req.query.keyword }, (err, encounterResult) => {
+                res.send(encounterResult);
+            })
+        }
     }
 });
 
