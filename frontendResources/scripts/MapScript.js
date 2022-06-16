@@ -124,13 +124,13 @@ function CreatePin() {
 
             xhttp.onload = function () {
                 console.log("eh?");
-                ClosePinCreator();
-                GetPins();
             }
 
             xhttp.open("POST", "http://localhost:6069/pins", true);
             xhttp.setRequestHeader('Content-type', 'application/json');
             xhttp.send(JSON.stringify(pinJSON));
+						ClosePinCreator();
+						GetPins();
         }
 
         reader.readAsDataURL(pinImages.files[0]);

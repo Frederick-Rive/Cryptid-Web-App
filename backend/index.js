@@ -93,24 +93,21 @@ async function PostPin(objectData) {
 }
 
 async function PatchAccount(input) {
-    const updates = JSON.parse(input);
+  //console.log(input);
+    //const updates = JSON.parse(input);
 
-    if (updates.profilepic) {
+    if (input.profilepic) {
         var newImage = new Image({
             _id: new mongoose.Types.ObjectId,
-            data: updates.profilePic
+            data: input.profilePic
         });
         newImage.save().then(result => {
-            var accountUpdate = {
-                profilepic: result._id,
-                bio: updates.bio
-            }
-            Account.updateOne({ _id: userAccount._id }, accountUpdate)
+            Account.updateOne({ _id: userAccount._id }, {"profilepic": result._id, "bio": input.bio});
         })
     }
     else {
         var accountUpdate = {
-            bio: updates.bio
+            bio: input.bio
         }
         Account.updateOne({ _id: userAccount._id }, accountUpdate)
     }
@@ -119,7 +116,7 @@ async function PatchAccount(input) {
 //app.get: returns data from the database
 //app.post: saves data to the database
 
-//return a 
+//return a
 app.get('/pins', (req, res) => {
     if (req.query.keyword) {
         if (req.query.type == "title") {
@@ -155,7 +152,6 @@ app.get('/pins', (req, res) => {
 
 //Calls the PostPin function to save a pin to the database
 app.post('/pins', (req, res) => {
-    console.log(req.body);
     PostPin(req.body);
 });
 
@@ -203,8 +199,31 @@ app.get('/account', (req, res) => {
 });
 
 app.patch('/account', (req, res) => {
-    PatchAccount(req.body);
-    res.send("success");
+    console.log(req.body);
+    console.log("patch");
+    if (req.body.profilepic) {
+        var newImage = new Image({
+            _id: new mongoose.Types.ObjectId,
+            data: req.body.profilepic
+        });
+        newImage.save().then(result => {
+            var updates = {
+              bio: req.body.bio,
+              profilepic: result._id
+            }
+            Account.updateOne({ _id: userAccount._id }, updates)
+            .then(result => {
+              res.send(result);
+            }).catch(err => res.send(err));
+        })
+    }
+    else {
+        var accountUpdate = {
+            bio: req.body.bio
+        }
+        console.log(accountUpdate);
+        Account.updateOne({ _id: userAccount._id }, accountUpdate)
+    }
 });
 
 //sets the users account.

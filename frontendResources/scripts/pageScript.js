@@ -95,16 +95,19 @@ function UpdateProfile() {
         reader.onload = function () {
             const xhttp = new XMLHttpRequest();
 
-            xhttp.onload = function () {
-                console.log("by the end of the week i want real popups please");
-            }
-
-            const updates = {
+            var updates = {
                 bio: bioInput.value,
                 profilepic: reader.result
             };
 
+            xhttp.onload = function () {
+                console.log("by the end of the week i want real popups please");
+            }
+
+            console.log(JSON.stringify(updates));
+
             xhttp.open("PATCH", "http://localhost:6069/account");
+            xhttp.setRequestHeader('Content-type', 'application/json');
             xhttp.send(JSON.stringify(updates));
         }
         reader.readAsDataURL(imageInput.files[0]);
@@ -116,11 +119,12 @@ function UpdateProfile() {
             console.log("by the end of the week i want real popups please");
         }
 
-        const updates = {
-            bio: bioInput.value,
+        var updates = {
+            bio: bioInput.value
         };
 
         xhttp.open("PATCH", "http://localhost:6069/account");
+        xhttp.setRequestHeader('Content-type', 'application/json');
         xhttp.send(JSON.stringify(updates));
     }
 }
