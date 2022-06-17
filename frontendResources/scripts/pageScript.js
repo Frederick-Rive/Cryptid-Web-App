@@ -128,3 +128,19 @@ function UpdateProfile() {
         xhttp.send(JSON.stringify(updates));
     }
 }
+
+function GetComment(commentID, wrapper) {
+  const xhttp = new XMLHttpRequest();
+  xhttp.onload = function () {
+    thisComment = JSON.parse(this.responseText);
+    const xhttp2 = new XMLHttpRequest();
+    xhttp2.onload = function () {
+      thisAccount = JSON.parse(this.responseText);
+      wrapper.innerHTML += "<div class='comment'><h1>" + thisAccount.username + "</h1><p>" + thisComment.text + "</p></div>"
+    }
+    xhttp2.open("GET", "http://localhost:6069/account?keyword=" + thisComment.user, true);
+    xhttp2.send();
+  }
+  xhttp.open("GET", "http://localhost:6069/comment?keyword=" + commentID, true);
+  xhttp.send();
+}

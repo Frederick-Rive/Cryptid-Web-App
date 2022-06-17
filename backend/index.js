@@ -92,27 +92,6 @@ async function PostPin(objectData) {
     });
 }
 
-async function PatchAccount(input) {
-  //console.log(input);
-    //const updates = JSON.parse(input);
-
-    if (input.profilepic) {
-        var newImage = new Image({
-            _id: new mongoose.Types.ObjectId,
-            data: input.profilePic
-        });
-        newImage.save().then(result => {
-            Account.updateOne({ _id: userAccount._id }, {"profilepic": result._id, "bio": input.bio});
-        })
-    }
-    else {
-        var accountUpdate = {
-            bio: input.bio
-        }
-        Account.updateOne({ _id: userAccount._id }, accountUpdate)
-    }
-}
-
 //app.get: returns data from the database
 //app.post: saves data to the database
 
@@ -228,14 +207,7 @@ app.patch('/account', (req, res) => {
 
 //sets the users account.
 app.post('/account', (req, res) => {
-    userAccount = new Account({
-        _id: req.body._id,
-        username: req.body.username,
-        password: req.body.password,
-        description: req.body.description,
-        encounterlog: req.body.encounterlog,
-        is_admin: req.body.is_admin
-    });
+    userAccount = req.body;
 });
 
 //gets an ecnounter based on its ID
@@ -257,7 +229,7 @@ app.get('/encounter', (req, res) => {
 //saves a new encounter
 app.post('/encounter', (req, res) => {
     var newEncounter = new Encounter({
-        _id: mongoose.Types.ObjectId,
+        _id: new mongoose.Types.ObjectId,
         user: userAccount._id,
         title: req.body.title,
         description: req.body.description,
@@ -281,6 +253,28 @@ app.get('/comment', (req, res) => {
         })
     }
 });
+
+app.post('/comment', (req, res) => {
+  if (userAccount.username != "NULL")
+  {
+    var newComment = new Comment ({
+      _id: new mongoose.Types.ObjectId,
+      user: userAccount._id,
+      text: req.body.text,
+      is_reported: false
+    });
+    newComment.save().then(result => {
+      const commentUpdate = {
+        $push: {
+          comments: result._id
+        }
+      }
+      Encounter.updateOne({_id: req.body.encounter}, commentUpdate).then(result => {
+        res.send(result);
+      }).catch(err => res.send(err));
+    });
+  }
+})
 
 //gets an image based on its ID
 app.get('/image', (req, res) => {
