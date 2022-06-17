@@ -20,24 +20,6 @@ function toAccount() {
     window.location = "./Login.html";
 }
 
-function convertImg(input) {
-    var url = input.value;
-    console.log(url);
-    var ext = url.substring(url.lastIndexOf('.') + 1).toLowerCase();
-
-    if (input.files && input.files[0] && (ext == "png" || ext == "jpeg" || ext == "jpg")) {
-        const reader = new FileReader();
-
-        reader.onload = function () {
-            console.log(reader.result);
-        }
-
-        reader.readAsDataURL(input.files[0]);
-    } else {
-        console.log("an error has occured");
-    }
-}
-
 function logIn() {
     var usernameInput = document.getElementById('loginUsername');
     var passwordInput = document.getElementById('loginPassword');
@@ -113,16 +95,19 @@ function UpdateProfile() {
         reader.onload = function () {
             const xhttp = new XMLHttpRequest();
 
-            xhttp.onload = function () {
-                console.log("by the end of the week i want real popups please");
-            }
-
-            const updates = {
+            var updates = {
                 bio: bioInput.value,
                 profilepic: reader.result
             };
 
+            xhttp.onload = function () {
+                console.log("by the end of the week i want real popups please");
+            }
+
+            console.log(JSON.stringify(updates));
+
             xhttp.open("PATCH", "http://localhost:6069/account");
+            xhttp.setRequestHeader('Content-type', 'application/json');
             xhttp.send(JSON.stringify(updates));
         }
         reader.readAsDataURL(imageInput.files[0]);
@@ -134,11 +119,28 @@ function UpdateProfile() {
             console.log("by the end of the week i want real popups please");
         }
 
-        const updates = {
-            bio: bioInput.value,
+        var updates = {
+            bio: bioInput.value
         };
 
         xhttp.open("PATCH", "http://localhost:6069/account");
+        xhttp.setRequestHeader('Content-type', 'application/json');
         xhttp.send(JSON.stringify(updates));
     }
+}
+
+function GetComment(commentID, wrapper) {
+  const xhttp = new XMLHttpRequest();
+  xhttp.onload = function () {
+    thisComment = JSON.parse(this.responseText);
+    const xhttp2 = new XMLHttpRequest();
+    xhttp2.onload = function () {
+      thisAccount = JSON.parse(this.responseText);
+      wrapper.innerHTML += "<div class='comment'><h1>" + thisAccount.username + "</h1><p>" + thisComment.text + "</p></div>"
+    }
+    xhttp2.open("GET", "http://localhost:6069/account?keyword=" + thisComment.user, true);
+    xhttp2.send();
+  }
+  xhttp.open("GET", "http://localhost:6069/comment?keyword=" + commentID, true);
+  xhttp.send();
 }

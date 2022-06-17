@@ -30,6 +30,9 @@ var creatingPin = false;
 //Dynamic Array of all pins on the map
 var pinList = [];
 
+//ID of opened encounter
+var encounterID;
+
 //display Latitude and Longitude on map when clicked
 map.on('click', function (e) {
     if (creatingPin) {
@@ -41,6 +44,23 @@ map.on('click', function (e) {
         pinIndicator = L.marker(e.latlng).addTo(map);
     }
 });
+
+// Post a comment to theb
+function PostComment()
+{
+  const commentInput = document.getElementById("commmentCreation");
+
+	const commentJSON = {
+		text: commentInput.value,
+		encounter: encounterID
+	};
+
+	const xhttp = new XMLHttpRequest();
+
+	xhttp.open("POST", "http://localhost:6069/comment");
+  xhttp.setRequestHeader('Content-type', 'application/json');
+	xhttp.send(JSON.stringify(commentJSON));
+}
 
 // New pin creation (map)
 function OpenPinCreator() {
@@ -81,7 +101,7 @@ function OpenPinDisplay() {
 }
 
 function ClosePinDisplay() {
-    document.getElementById('pinDisplay').innerHTML = '<h2> Pin Information</h2 ><hr style = "width: 60%; margin-left: 0;"><p id="pinLocation">[PH] location</p><p id="pinTime">[PH] time</p> <p id="pinInfo">[PH] description</p>';
+    document.getElementById('pinDisplay').innerHTML = '<h2> Pin Information</h2 ><hr style = "width: 60%; margin-left: 0;"><p id="pinTitle">[PH] name</p><p id="pinLocation">[PH] location</p><p id="pinTime">[PH] time</p> <p id="pinInfo">[PH] description</p>';
     document.getElementById('pinDisplay').style.display = "none";
 }
 
@@ -107,13 +127,13 @@ function CreatePin() {
 
             xhttp.onload = function () {
                 console.log("eh?");
-                ClosePinCreator();
-                GetPins();
             }
 
             xhttp.open("POST", "http://localhost:6069/pins", true);
             xhttp.setRequestHeader('Content-type', 'application/json');
             xhttp.send(JSON.stringify(pinJSON));
+						ClosePinCreator();
+						GetPins();
         }
 
         reader.readAsDataURL(pinImages.files[0]);
@@ -158,6 +178,7 @@ function onMarkerClick(e) {
             var thisEncounter = JSON.parse(this.responseText);
             var pinDisplay = document.getElementById('pinDisplay');
 
+						document.getElementById('pinTitle').textContent = thisEncounter.title;
             document.getElementById('pinInfo').textContent = "Description: " + thisEncounter.description;
             document.getElementById('pinTime').textContent = "Time: " + thisEncounter.datetime;
             document.getElementById('pinLocation').textContent = "Location: " + thisEncounter.location;
@@ -168,11 +189,19 @@ function onMarkerClick(e) {
                 xhttp3.onload = function () {
                     var thisImage = JSON.parse(this.responseText);
                     pinDisplay.innerHTML += '<img src="' + thisImage.data + '">';
+										document.getElementById('pinDisplay').innerHTML += "<div class='comments'> <h2>Comments:</h2> <hr style='width:75%; margin:0;border-color:green;'>";
+										for (o = 0; o < thisEncounter.comments.length; o++)
+										{
+											GetComment(thisEncounter.comments[o], document.getElementById('pinDisplay'));
+										}
+									 document.getElementById('pinDisplay').innerHTML += "<input id='commmentCreation' type='text' name='createComment' placeholder='Enter comment here:'><button type='button' onclick='PostComment()'>Post Comment</button>";
                 }
 
                 xhttp3.open("GET", "http://localhost:6069/image?keyword=" + thisEncounter.images[i], true);
                 xhttp3.send();
             }
+
+						encounterID = thisEncounter._id;
         }
         console.log(thisPin.title);
         xhttp2.open("GET", "http://localhost:6069/encounter?keyword=" + thisPin.encounter, true);
