@@ -41,18 +41,17 @@ function UpdateProfilePage() {
     bio.textContent = userAccount.bio;
   }
 
-  activitylog.innerHTML = "<h2>PH-Activity Feed</h2>";
+  activitylog.innerHTML = "<h2>Activity Feed</h2>";
 
   const xhttp = new XMLHttpRequest();
   xhttp.onload = function () {
     activities = JSON.parse(this.responseText);
     for (i = 0; i < activities.length; i++) {
       activitylog.innerHTML += "<div class='activityFeedItem'> <h3>" + activities[i].title + "</h3> <p>" + activities[i].description + "</p><p>" + activities[i].location + "<br>" + activities[i].datetime + "</p>";
-      activitylog.innerHTML += "<div class='comments'> <h2>Comments:</h2> <hr style='width:75%; margin:0;border-color:green;'>)";
+      activitylog.innerHTML += "<div class='commentHead'> <h2>Comments:</h2> <hr style='width:75%; margin:0;border-color:green;'>";
       for (o = 0; o < activities[i].comments.length; o++) {
         GetComment(activities[i].comments[o], activitylog);
       }
-      activitylog.innerHTML += "</div>"
     }
   }
 
