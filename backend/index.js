@@ -92,34 +92,10 @@ async function PostPin(objectData) {
     });
 }
 
-async function PatchAccount(input) {
-    const updates = JSON.parse(input);
-
-    if (updates.profilepic) {
-        var newImage = new Image({
-            _id: new mongoose.Types.ObjectId,
-            data: updates.profilePic
-        });
-        newImage.save().then(result => {
-            var accountUpdate = {
-                profilepic: result._id,
-                bio: updates.bio
-            }
-            Account.updateOne({ _id: userAccount._id }, accountUpdate)
-        })
-    }
-    else {
-        var accountUpdate = {
-            bio: updates.bio
-        }
-        Account.updateOne({ _id: userAccount._id }, accountUpdate)
-    }
-}
-
 //app.get: returns data from the database
 //app.post: saves data to the database
 
-//return a 
+//return a
 app.get('/pins', (req, res) => {
     if (req.query.keyword) {
         if (req.query.type == "title") {
@@ -155,7 +131,6 @@ app.get('/pins', (req, res) => {
 
 //Calls the PostPin function to save a pin to the database
 app.post('/pins', (req, res) => {
-    console.log(req.body);
     PostPin(req.body);
 });
 
@@ -203,20 +178,36 @@ app.get('/account', (req, res) => {
 });
 
 app.patch('/account', (req, res) => {
-    PatchAccount(req.body);
-    res.send("success");
+    console.log(req.body);
+    console.log("patch");
+    if (req.body.profilepic) {
+        var newImage = new Image({
+            _id: new mongoose.Types.ObjectId,
+            data: req.body.profilepic
+        });
+        newImage.save().then(result => {
+            var updates = {
+              bio: req.body.bio,
+              profilepic: result._id
+            }
+            Account.updateOne({ _id: userAccount._id }, updates)
+            .then(result => {
+              res.send(result);
+            }).catch(err => res.send(err));
+        })
+    }
+    else {
+        var accountUpdate = {
+            bio: req.body.bio
+        }
+        console.log(accountUpdate);
+        Account.updateOne({ _id: userAccount._id }, accountUpdate)
+    }
 });
 
 //sets the users account.
 app.post('/account', (req, res) => {
-    userAccount = new Account({
-        _id: req.body._id,
-        username: req.body.username,
-        password: req.body.password,
-        description: req.body.description,
-        encounterlog: req.body.encounterlog,
-        is_admin: req.body.is_admin
-    });
+    userAccount = req.body;
 });
 
 //gets an ecnounter based on its ID
@@ -238,7 +229,7 @@ app.get('/encounter', (req, res) => {
 //saves a new encounter
 app.post('/encounter', (req, res) => {
     var newEncounter = new Encounter({
-        _id: mongoose.Types.ObjectId,
+        _id: new mongoose.Types.ObjectId,
         user: userAccount._id,
         title: req.body.title,
         description: req.body.description,
@@ -262,6 +253,28 @@ app.get('/comment', (req, res) => {
         })
     }
 });
+
+app.post('/comment', (req, res) => {
+  if (userAccount.username != "NULL")
+  {
+    var newComment = new Comment ({
+      _id: new mongoose.Types.ObjectId,
+      user: userAccount._id,
+      text: req.body.text,
+      is_reported: false
+    });
+    newComment.save().then(result => {
+      const commentUpdate = {
+        $push: {
+          comments: result._id
+        }
+      }
+      Encounter.updateOne({_id: req.body.encounter}, commentUpdate).then(result => {
+        res.send(result);
+      }).catch(err => res.send(err));
+    });
+  }
+})
 
 //gets an image based on its ID
 app.get('/image', (req, res) => {
