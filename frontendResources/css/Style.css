@@ -172,6 +172,11 @@ html, body {
 
 /* NOTE: Settings Css */
 
+#settingsToMapLink {
+  margin-left: 1em;
+  margin-right: 1em;
+}
+
 .settings {
   display: flex;
   flex-direction: column;
@@ -182,6 +187,15 @@ html, body {
   vertical-align: text-top;
   width: 95%;
   height: 260px;
+
+  background-color: black;
+  color: green;
+  border: 3px solid green;
+}
+
+#ApplyButton {
+  margin-left: 40em;
+  margin-top: 1em;
 }
 
 /* profile picure settings */
@@ -230,9 +244,6 @@ html, body {
   /* placement on page */
   margin-left: 21%;
   /*margin-right: 36%;*/
-
-
-
 
   /* arrangement in Contatiner */
   padding-left: 50px;
