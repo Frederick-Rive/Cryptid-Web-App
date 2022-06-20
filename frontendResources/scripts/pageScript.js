@@ -132,11 +132,11 @@ function UpdateProfile() {
 function GetComment(commentID, wrapper) {
   const xhttp = new XMLHttpRequest();
   xhttp.onload = function () {
-    thisComment = JSON.parse(this.responseText);
+    var thisComment = JSON.parse(this.responseText);
     const xhttp2 = new XMLHttpRequest();
     xhttp2.onload = function () {
-      thisAccount = JSON.parse(this.responseText);
-      wrapper.innerHTML += "<div class='comment'><h1>" + thisAccount.username + "</h1><p>" + thisComment.text + "</p></div>"
+      var thisAccount = JSON.parse(this.responseText);
+      wrapper.innerHTML += "<div class='comments'><h3>" + thisAccount.username + "</h3><p>" + thisComment.text + "</p></div><hr style='width:50%; margin:0;border-color:green;'>"
     }
     xhttp2.open("GET", "http://localhost:6069/account?keyword=" + thisComment.user, true);
     xhttp2.send();

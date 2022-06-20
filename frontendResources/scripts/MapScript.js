@@ -189,9 +189,10 @@ function onMarkerClick(e) {
                 xhttp3.onload = function () {
                     var thisImage = JSON.parse(this.responseText);
                     pinDisplay.innerHTML += '<img src="' + thisImage.data + '">';
-										document.getElementById('pinDisplay').innerHTML += "<div class='comments'> <h2>Comments:</h2> <hr style='width:75%; margin:0;border-color:green;'>";
+										document.getElementById('pinDisplay').innerHTML += "<div class='commentHead'> <h2>Comments:</h2> <hr style='width:75%; margin:0;border-color:green;'>";
 										for (o = 0; o < thisEncounter.comments.length; o++)
 										{
+											console.log(thisEncounter.comments[o]);
 											GetComment(thisEncounter.comments[o], document.getElementById('pinDisplay'));
 										}
 									 document.getElementById('pinDisplay').innerHTML += "<input id='commmentCreation' type='text' name='createComment' placeholder='Enter comment here:'><button type='button' onclick='PostComment()'>Post Comment</button>";

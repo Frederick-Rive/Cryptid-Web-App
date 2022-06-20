@@ -23,7 +23,6 @@ html, body {
 
 /* NOTE: Map Page */
 
-
 /* Map CSS */
 #Mapid {
   margin-left: 25%;
@@ -160,6 +159,17 @@ html, body {
   border: 1px solid green;
   margin-left: 25px;
   margin-right: 25px;
+}
+
+/*comments*/
+
+.comments {
+    padding-left: 20px;
+    width: 90%;
+}
+
+.h3 {
+  margin-left: 20px;
 }
 
 #commmentCreation {
