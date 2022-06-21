@@ -2,10 +2,46 @@
 var usernameInput = document.getElementById('uName');
 var passwordInput = document.getElementById('pWord');
 var searchInput = document.getElementsByName('searchbar');
+var notifyText = document.getElementById('notifyText');
+var userAccount;
 
 //event functions
-function toProfile() {
-    window.location = "./profile.html";
+function NotifyUser(text = ""){
+  notifyText.textContent = text;
+}
+
+function GetUserAccount()
+{
+  return userAccount();
+}
+
+function FindUserAccount()
+{
+  const xhttp = new XMLHttpRequest();
+
+  xhttp.onload = function () {
+    userAccount = JSON.parse(this.responseText);
+  }
+
+  xhttp.open("GET", "http://localhost:6069/account", true);
+  xhttp.send();
+}
+
+function toProfile(account = "") {
+    const xhttp = new XMLHttpRequest();
+
+    xhttp.onload = function () {
+        window.location = "./profile.html";
+    }
+
+    var viewJSON = {
+      name: account
+    }
+
+    console.log (viewJSON);
+    xhttp.open("POST", "http://localhost:6069/viewAccount", true);
+    xhttp.setRequestHeader('Content-type', 'application/json');
+    xhttp.send(JSON.stringify(viewJSON));
 }
 
 function toSettings() {
@@ -129,14 +165,14 @@ function UpdateProfile() {
     }
 }
 
-function GetComment(commentID, wrapper) {
+function GetComment(commentID, wrapper, bar = "<hr style='width:50%; margin:0;border-color: green;'>", colour = "green") {
   const xhttp = new XMLHttpRequest();
   xhttp.onload = function () {
     var thisComment = JSON.parse(this.responseText);
     const xhttp2 = new XMLHttpRequest();
     xhttp2.onload = function () {
       var thisAccount = JSON.parse(this.responseText);
-      wrapper.innerHTML += "<div class='comments'><h3>" + thisAccount.username + "</h3><p>" + thisComment.text + "</p></div><hr style='width:50%; margin:0;border-color:green;'>"
+      wrapper.innerHTML += "<a href='#'' onclick='toProfile(" + ('"' + thisAccount.username + '"') + ")'; style='color: " + colour + "; text-decoration: none;'><div class='comments'><h3>" + thisAccount.username + "</h3><p>" + thisComment.text + "</p></div></a>" + bar;
     }
     xhttp2.open("GET", "http://localhost:6069/account?keyword=" + thisComment.user, true);
     xhttp2.send();
