@@ -6,23 +6,29 @@ const profilePic = document.getElementById("profilePic");
 const bio = document.getElementById("profileBio");
 
 function GetUserAccount() {
-    const xhttp = new XMLHttpRequest();
+    const xhttp2 = new XMLHttpRequest();
 
-    xhttp.onload = function () {
-      userAccount = JSON.parse(this.responseText);
-      if (userAccount.username == "NULL")
-      {
-        toAccount();
-      }
-      UpdateProfilePage();
+    xhttp2.onload = function() {
+        const xhttp = new XMLHttpRequest();
+        var view = JSON.parse(this.responseText);
+        xhttp.onload = function () {
+          userAccount = JSON.parse(this.responseText);
+          if (userAccount.username == "NULL")
+          {
+            toAccount();
+          }
+          UpdateProfilePage();
+        }
+
+        xhttp.open("GET", "http://localhost:6069/account?keyword=" + view.name + "&type=username", true);
+        xhttp.send();
     }
 
-    xhttp.open("GET", "http://localhost:6069/account", true);
-    xhttp.send();
+    xhttp2.open("GET", "http://localhost:6069/viewAccount");
+    xhttp2.send();
 }
 
 function UpdateProfilePage() {
-  console.log(userAccount);
   name.innerHTML = userAccount.username;
 
   if (userAccount.profilepic) {

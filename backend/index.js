@@ -49,6 +49,9 @@ var userAccount = new Account({
     encounterlog: [],
     is_admin: false
 });
+var viewName = {
+  name: ""
+}
 
 //Creates a pin, along with an encounter and image to go with it, then saves them all to the database
 async function PostPin(objectData) {
@@ -168,18 +171,30 @@ app.post('/register', (req, res) => {
 
 //gets an account based on its ID
 app.get('/account', (req, res) => {
-    if (req.query.keyword) {
-        Account.findOne({ _id: req.query.keyword }, (err, accountResult) => {
+  console.log(req.query.keyword);
+    if (req.query.keyword && req.query.keyword != "{}") {
+      console.log(req.query.keyword);
+      if (req.query.type == "username") {
+        Account.findOne({ username: req.query.keyword }, (err, accountResult) => {
+          if (accountResult){
             res.send(accountResult);
+          }
         })
+      }
+      else {
+        Account.findOne({ _id: req.query.keyword }, (err, accountResult) => {
+          if (accountResult){
+            res.send(accountResult);
+          }
+        })
+      }
     } else {
+      console.log("a");
         res.send(userAccount);
     }
 });
 
 app.patch('/account', (req, res) => {
-    console.log(req.body);
-    console.log("patch");
     if (req.body.profilepic) {
         var newImage = new Image({
             _id: new mongoose.Types.ObjectId,
@@ -274,6 +289,17 @@ app.post('/comment', (req, res) => {
       }).catch(err => res.send(err));
     });
   }
+})
+
+app.get('/viewAccount', (req, res) => {
+    res.send(viewName);
+})
+
+app.post('/viewAccount', (req, res) => {
+    viewName = {
+      name: req.body.name
+    };
+    res.send("success");
 })
 
 //gets an image based on its ID
