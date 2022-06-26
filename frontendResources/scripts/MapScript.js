@@ -111,7 +111,6 @@ function ClosePinDisplay() {
 
 function CreatePin() {
     var url = pinImages.value;
-    console.log(url);
     var ext = url.substring(url.lastIndexOf('.') + 1).toLowerCase();
 
     if (pinImages.files && pinImages.files[0] && (ext == "png" || ext == "jpeg" || ext == "jpg")) {
@@ -128,10 +127,6 @@ function CreatePin() {
             };
 
             const xhttp = new XMLHttpRequest();
-
-            xhttp.onload = function () {
-                console.log("eh?");
-            }
 
             xhttp.open("POST", "http://localhost:6069/pins", true);
             xhttp.setRequestHeader('Content-type', 'application/json');
@@ -151,12 +146,9 @@ function CreatePin() {
             images: "NULL"
         };
 
-        console.log(pinJSON);
-
         const xhttp = new XMLHttpRequest();
 
         xhttp.onload = function () {
-            console.log(res.body);
             ClosePinCreator();
         }
 
@@ -181,36 +173,33 @@ function onMarkerClick(e) {
             var thisEncounter = JSON.parse(this.responseText);
             var pinDisplay = document.getElementById('pinDisplay');
 
-						document.getElementById('pinTitle').textContent = thisEncounter.title;
-            document.getElementById('pinInfo').textContent = "Description: " + thisEncounter.description;
-            document.getElementById('pinTime').textContent = "Time: " + thisEncounter.datetime;
-            document.getElementById('pinLocation').textContent = "Location: " + thisEncounter.location;
-
 						const xhttp3 = new XMLHttpRequest();
 						xhttp3.onload = function () {
 							var thisAccount = JSON.parse(this.responseText);
-							document.getElementById('pinUser').innerHTML = "User: <a href='#'' onclick='toProfile(" + ('"' + thisAccount.username + '"') + ")'; style='color: black; text-decoration: none;'>" + thisAccount.username + "</a>"
+							pinDisplay.innerHTML = '<h2>Pin Information</h2><hr style = "width: 60%; margin-left: 0;"><h2 id="pinTitle">' + thisEncounter.title + '</h2>'
+							pinDisplay.innerHTML += "<h3 id=pinUser><a href='#'' onclick='toProfile(" + ('"' + thisAccount.username + '"') + ")'; style='color: black; text-decoration: none;'>User: " + thisAccount.username + "</a></h3>";
+							pinDisplay.innerHTML += '<p id="pinCryptid">Cryptid: ' + thisEncounter.cryptid + '</p><p id="pinLocation">Location: ' + thisEncounter.location + '</p><p id="pinTime">Time: ' + thisEncounter.datetime + '</p> <p id="pinInfo">Description: ' + thisEncounter.description + '</p>'
+
+							for (i = 0; i < thisEncounter.images.length; i++) {
+									const xhttp4 = new XMLHttpRequest();
+
+									xhttp4.onload = function () {
+											var thisImage = JSON.parse(this.responseText);
+											pinDisplay.innerHTML += '<img id=pinImage src="' + thisImage.data + '">';
+											document.getElementById('pinDisplay').innerHTML += "<div class='commentHead'> <h2>Comments:</h2> <hr style='width:99%;text-align:left; margin-left:0;'>";
+											for (o = 0; o < thisEncounter.comments.length; o++)
+											{
+												GetComment(thisEncounter.comments[o], document.getElementById('pinDisplay'), "<hr style='width:50%;text-align:left; margin-left:0;'>", "black");
+											}
+										 document.getElementById('pinDisplay').innerHTML += "<input id='commmentCreation' type='text' name='createComment' placeholder='Enter comment here:' style='background-color: white; border-color: grey'><button type='button' onclick='PostComment()'>Post Comment</button>";
+									}
+
+									xhttp4.open("GET", "http://localhost:6069/image?keyword=" + thisEncounter.images[i], true);
+									xhttp4.send();
+							}
 						}
 						xhttp3.open("GET", "http://localhost:6069/account?keyword=" + thisEncounter.user);
 						xhttp3.send();
-
-            for (i = 0; i < thisEncounter.images.length; i++) {
-                const xhttp4 = new XMLHttpRequest();
-
-                xhttp4.onload = function () {
-                    var thisImage = JSON.parse(this.responseText);
-                    pinDisplay.innerHTML += '<img id=pinImage src="' + thisImage.data + '">';
-										document.getElementById('pinDisplay').innerHTML += "<div class='commentHead'> <h2>Comments:</h2> <hr style='width:99%;text-align:left; margin-left:0;'>";
-										for (o = 0; o < thisEncounter.comments.length; o++)
-										{
-											GetComment(thisEncounter.comments[o], document.getElementById('pinDisplay'), "<hr style='width:50%;text-align:left; margin-left:0;'>", "black");
-										}
-									 document.getElementById('pinDisplay').innerHTML += "<input id='commmentCreation' type='text' name='createComment' placeholder='Enter comment here:' style='background-color: white; border-color: grey'><button type='button' onclick='PostComment()'>Post Comment</button>";
-                }
-
-                xhttp4.open("GET", "http://localhost:6069/image?keyword=" + thisEncounter.images[i], true);
-                xhttp4.send();
-            }
 
 						encounterID = thisEncounter._id;
         }

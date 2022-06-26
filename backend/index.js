@@ -165,15 +165,12 @@ app.post('/register', (req, res) => {
         is_admin: req.body.is_admin
     });
     newAccount.save();
-    console.log("Account " + newAccount.username + " has been saved");
     res.send("Account " + newAccount.username + " has been saved")
 });
 
 //gets an account based on its ID
 app.get('/account', (req, res) => {
-  console.log(req.query.keyword);
     if (req.query.keyword && req.query.keyword != "{}") {
-      console.log(req.query.keyword);
       if (req.query.type == "username") {
         Account.findOne({ username: req.query.keyword }, (err, accountResult) => {
           if (accountResult){
@@ -189,7 +186,6 @@ app.get('/account', (req, res) => {
         })
       }
     } else {
-      console.log("a");
         res.send(userAccount);
     }
 });
@@ -215,7 +211,6 @@ app.patch('/account', (req, res) => {
         var accountUpdate = {
             bio: req.body.bio
         }
-        console.log(accountUpdate);
         Account.updateOne({ _id: userAccount._id }, accountUpdate)
     }
 });

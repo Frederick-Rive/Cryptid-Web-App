@@ -70,12 +70,11 @@ function logIn() {
             return;
         }
         thisAccount = JSON.parse(this.responseText);
-        console.log("Success! you have (hypothetically) logged in!");
+        notifyText.textContent = "Success!";
 
         const xhttp2 = new XMLHttpRequest();
         xhttp2.open("POST", "http://localhost:6069/account", true);
         xhttp2.setRequestHeader('Content-type', 'application/json');
-        console.log(thisAccount);
         xhttp2.send(JSON.stringify(thisAccount));
 
         toSettings();
@@ -92,11 +91,19 @@ function register() {
     var uN = usernameInput.value;
     var pW = passwordInput.value;
 
+    if (uN == "") {
+      notifyText.textContent = "Please give your account a username.";
+      return;
+    } else if (pW == "") {
+      notifyText.textContent = "Please give your account a password.";
+      return;
+    }
+
     const xhttp2 = new XMLHttpRequest();
 
     xhttp2.onload = function () {
         if (this.responseText != "N-USERNAME") {
-            console.log("That username has already been taken");
+            notifyText.textContent = "That username has already been taken by another user. Please use another username.";
             return;
         }
         const xhttp = new XMLHttpRequest();
@@ -107,10 +114,6 @@ function register() {
             bio: "",
             is_admin: false
         };
-
-        xhttp.onload = function () {
-            console.log(this.responseText);
-        }
 
         xhttp.open("POST", "http://localhost:6069/register", true);
         xhttp.setRequestHeader('Content-type', 'application/json');
@@ -137,10 +140,8 @@ function UpdateProfile() {
             };
 
             xhttp.onload = function () {
-                console.log("by the end of the week i want real popups please");
+                toProfile();
             }
-
-            console.log(JSON.stringify(updates));
 
             xhttp.open("PATCH", "http://localhost:6069/account");
             xhttp.setRequestHeader('Content-type', 'application/json');
@@ -152,7 +153,7 @@ function UpdateProfile() {
         const xhttp = new XMLHttpRequest();
 
         xhttp.onload = function () {
-            console.log("by the end of the week i want real popups please");
+          toProfile();
         }
 
         var updates = {
