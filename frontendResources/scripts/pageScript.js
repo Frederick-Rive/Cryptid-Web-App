@@ -20,6 +20,10 @@ function toAccount() {
     window.location = "./Login.html";
 }
 
+function expandImage() {
+  document.getElementById('AFI_Image').style.display = "flex";
+}
+
 function logIn() {
     var usernameInput = document.getElementById('loginUsername');
     var passwordInput = document.getElementById('loginPassword');
